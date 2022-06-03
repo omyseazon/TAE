@@ -30,36 +30,50 @@
         <div class="col-lg-10">
           <form  method="POST" class="php-email-form">
             {% csrf_token %}
-            <h3 class="mb-3">Please fille below form </h3>
+            <h3 class="mb-3">Please fill below form </h3>
             {% include 'TAEApp/includes/messages.html' %}
             <div class="row mt-3">
+            
               <div class="col-md-6 form-group">
-                {% render_field form.TAENumber placeholder="TAE Code" class+="form-control" id+="seeAnotherField" %}
+                <label class="mb-2">TAE Member Code</label>
+                {% render_field form.Code  class+="form-control" id+="seeAnotherField" %}
 
               </div>
               <div class="col-md-6 form-group mt-3 mt-md-0">
-                {% render_field form.FullName placeholder=form.FullName.label class+="form-control"  %}
+                <label class="mb-2">First Name</label>
+                {% render_field form.FirstName  class+="form-control"  %}
               </div>
               <div class="col-md-6 form-group">
-                {% render_field form.Phone placeholder="Phone number" class+="form-control" id+="seeAnotherField" %}
+                <label class="mb-2">Middle Name</label>
+                {% render_field form.MiddleName class+="form-control" id+="seeAnotherField" %}
               </div>
               <div class="col-md-6 form-group mt-3 mt-md-0">
-                {% render_field form.CompanyOrSponsor placeholder="Company Or Sponsor" class+="form-control"  %}
+                <label class="mb-2">Last Name</label>
+                {% render_field form.LastName  class+="form-control"  %}
               </div>
               <div class="col-md-6 form-group">
-                {% render_field form.Position placeholder="Agent Name" class+="form-control"  %}
+                <label class="mb-2">Emirate ID</label>
+                {% render_field form.EmirateID  class+="form-control"  %}
               </div>
               <div class="col-md-6 form-group mt-3 mt-md-0">
-                {% render_field form.JobYears placeholder="Job Years" class+="form-control"  %}
+                <label class="mb-2">Visa Type</label>
+                {% render_field form.VisaType  class+="form-control"  %}
               </div>
               <div class="col-md-6 form-group">
-                {% render_field form.Complain placeholder="Complain" class+="form-control"  %}
+                <label class="mb-2">Education</label>
+                {% render_field form.Education class+="form-control"  %}
               </div>
               <div class="col-md-6 form-group mt-3 mt-md-0">
-                {% render_field form.TakenSteps placeholder="Taken Steps" class+="form-control"  %}
+                <label class="mb-2">Emirate</label>
+                {% render_field form.Emirate class+="form-control"  %}
               </div>
               <div class="col-md-6 form-group">
-                {% render_field form.Recommendation placeholder="Recommendation" class+="form-control"  %}
+                <label class="mb-2">Position</label>
+                {% render_field form.Position  class+="form-control"  %}
+              </div>
+              <div class="col-md-6 form-group">
+                <label class="mb-2">Employment Status</label>
+                {% render_field form.EmploymentStatus class+="form-control"  %}
               </div>
                        </div>
             <div class="my-3">

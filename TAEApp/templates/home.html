@@ -74,7 +74,7 @@
 
       <div class="section-title text-left">
         <h3>Gallery</h3>
-        <p><a class="text-dark" href="/">View more</a></p>
+        <p><a class="text-dark" href="/Gallery">View more</a></p>
       </div>
       <div class="row portfolio-container" data-aos="fade-up">
         {% for Gallery in Galleries %}
@@ -91,12 +91,12 @@
        </div>
     {% endfor %}
         
-        <div class="col-lg-4 col-md-6 portfolio-item ">
+        {% comment %} <div class="col-lg-4 col-md-6 portfolio-item ">
           <img src="{% static 'front_assets/img/portfolio/tea4.jpeg' %}" class="img-fluid" alt="">
           <a class="portfolio-info portfolio-lightbox preview-link" data-gallery="portfolioGallery" href="{% static 'front_assets/img/portfolio/tea4.jpeg' %}">
             <h4>Click to view full image </h4>
           </a>
-        </div>
+        </div> {% endcomment %}
        
       
 

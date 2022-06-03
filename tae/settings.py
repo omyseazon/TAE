@@ -23,12 +23,6 @@ FILE_UPLOAD_HANDLERS = [
     'django.core.files.uploadhandler.TemporaryFileUploadHandler',
 ]
 
-AWS_ACCESS_KEY_ID = 'AKIAYN3ZGH3C4XS66IKS'
-AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'omyseazonbucket'
-AWS_S3_REGION_NAME = 'US East (N. Virginia) us-east-1'
-AWS_S3_ENDPOINT_URL = 'https://s3.amazonaws.com'
-
 
 INSTALLED_APPS = [
     'django.contrib.admin',
