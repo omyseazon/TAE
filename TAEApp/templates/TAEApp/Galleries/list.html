@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %} 
+{% block content %}
+<div class="page-wrapper">
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="page-breadcrumb">
+      <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+          <h4 class="page-title">Galleries</h4>
+          <div class="ml-auto text-right">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">
+                  Gallery
+                </li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+     <div class="row">
+       <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-xs-1 m-2 col-sm-1 col-lg-1 col-md-1">
+                <a type="button" href="/createGallery" class="btn btn-primary btn-lg mb-3">Add new</a>
+              </div>
+             
+            </div>
+             
+          
+           <hr>
+                 <!-- ======= Portfolio Section ======= -->
+  <section id="portfolio" class="portfolio">
+    <div class="container">
+
+  
+      <div class="row portfolio-container" data-aos="fade-up">
+
+        {% for Gallery in Galleries %}
+       
+
+           <div class="col-lg-4 col-md-6 portfolio-item ">
+            <img src="{{Gallery.Photo.url}}" class="img-fluid" alt="">
+ 
+            <div class="portfolio-info">
+
+                <a href="{{Gallery.Photo.url}}" class="text-dark" title="More Details">View Image</a>
+           
+              <a href="{% url 'updateGallery' Gallery.id %}" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="App 1"><i class="fas fa-pencil-alt"></i></a>
+            </div>
+          </div>
+       {% endfor %}
+        
+
+       </div>
+
+    </div>
+  </section><!-- End Portfolio Section -->
+    
+            
+              <div class="row mt-3">
+               
+                  <div class="col-sm-12 col-md-7">
+                  <div class="dataTables_paginate paging_simple_numbers" id="zero_config_paginate">
+                    {% if Gallerys.has_other_pages %}
+                    <ul class="pagination">
+
+                      {% if Gallerys.has_previous %}
+                      <li class="paginate_button page-item previous " id="zero_config_previous">
+                        <a href="?page={{ Gallerys.previous_page_number }}" aria-controls="zero_config" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
+                      </li>
+                      {% else %}
+                      <li class="paginate_button page-item previous disabled" id="zero_config_next"><a href="#" aria-controls="zero_config" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
+
+                    {% endif %}
+
+               
+                        {% for i in Gallerys.paginator.page_range %}
+                        {% if Gallerys.number == i %}
+                        <li class="paginate_button page-item active"><a href="#" aria-controls="zero_config" data-dt-idx="1" tabindex="0" class="page-link">{{ i }}</a></li>
+
+                        {% else %}
+                        <li class="paginate_button page-item "><a href="?page={{ i }}" aria-controls="zero_config" data-dt-idx="2" tabindex="0" class="page-link">{{ i }}</a></li>
+
+                        {% endif %}
+                      {% endfor %}
+
+
+                        {% if Gallerys.has_next %}
+                        <li class="paginate_button page-item next" id="zero_config_next"><a href="?page={{ Gallerys.next_page_number }}" aria-controls="zero_config" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
+
+                      {% else %}
+                      <li class="paginate_button page-item next disabled" id="zero_config_next"><a href="#" aria-controls="zero_config" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
+                      {% endif %}
+                      </ul>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+
+  
+          </div></div>
+      </div>
+       </div>
+
+     </div>
+      
+    </div>
+
+    {% include 'TAEApp/includes/footer.html' %}
+  </div>
+{% endblock content %}
+    
+    
+
+

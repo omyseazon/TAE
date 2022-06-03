@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %} 
+{% block content %}
+<div class="page-wrapper">
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="page-breadcrumb">
+      <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+          <h4 class="page-title">Cheated by agents
+          </h4>
+          <div class="ml-auto text-right">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">
+                  Cheated by agents
+
+                </li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+     <div class="row">
+       <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-xs-1 m-2 col-sm-1 col-lg-1 col-md-1">
+                <a type="button" href="/createComplain2" class="btn btn-primary btn-lg mb-3">Add new</a>
+              </div>
+              {% comment %} <div class="col-xs-1 m-2 col-sm-1 col-lg-1 col-md-1">
+                <form method="post" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-success btn-lg mb-3" >Export</button>                            
+                </form>
+              </div> {% endcomment %}
+            </div>
+             
+          
+              <div class="table-responsive">
+                  <table id="zero_config" class="table table-striped table-bordered">
+                      <thead>
+                          <tr>
+                            <th>#</th>
+                            <th>TAE Code</th>
+                            <th>Full Name</th>
+                              <th>Phone </th>
+                              <th>Company Or Sponsor</th>
+                              <th>Position</th>
+                              <th>Actions</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                        {% for Complain2 in TeaComplain2 %}
+                        <tr>
+                          <th scope="row">{{ forloop.counter }}</th>
+                          <td>{{ Complain2.TAENumber }} </td>
+                          <td>{{ Complain2.FullName }}</td>
+                          <td>{{ Complain2.Phone }} </td>
+                          <td>{{ Complain2.CompanyOrSponsor }}</td>
+                          <td>{{ Complain2.Position }}</td>
+                         
+                          <td>
+                            <a class="btn btn-primary" href="{% url 'updateComplain2' Complain2.id %}"
+                              >Edit</a
+                            >
+                            <a class="btn btn-danger" href="{% url 'deleteComplain2' Complain2.id %}" 
+                              >Delete</a
+                            >
+                          </td>
+                        </tr>
+                        {% endfor %}
+                       
+                                 </tbody>
+                       <tfoot>
+                       
+                            <div class="row">
+                         
+                              <div class="col-sm-12 ">
+                                <div id="zero_config_filter" class="dataTables_filter">
+                                  <form method="get">
+                                    {% comment %} {{ myFilter.form.as_p }}  {% endcomment %}
+                                   
+                                    <div class="row mt-2 mb-3">
+                                      <div class="col-xs-4 mt-2 col-sm-4 col-lg-4 col-md-4">
+                                        <label class="required">Full Name</label>
+                                        {% render_field myFilter.form.FullName  class+="form-control form-control-sm" %}   
+                                      </div>
+                                      <div class="col-xs-4 mt-2 col-sm-4 col-lg-4 col-md-4">
+                                        <button type="submit" class="btn btn-secondary mt-4">Search</button>
+                                      </div>
+                                    </div>
+                                    
+                                   
+                                </div>
+                                  
+                                  </form>
+                                  {% comment %} <label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="zero_config"></label> {% endcomment %}
+                                </div></div></div>
+                        
+                      </tfoot>
+                  </table>
+              </div>
+              <div class="row mt-3">
+               
+                  <div class="col-sm-12 col-md-7">
+                  <div class="dataTables_paginate paging_simple_numbers" id="zero_config_paginate">
+                    {% if Complain2.has_other_pages %}
+                    <ul class="pagination">
+
+                      {% if Complain2.has_previous %}
+                      <li class="paginate_button page-item previous " id="zero_config_previous">
+                        <a href="?page={{ Complain2.previous_page_number }}" aria-controls="zero_config" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
+                      </li>
+                      {% else %}
+                      <li class="paginate_button page-item previous disabled" id="zero_config_next"><a href="#" aria-controls="zero_config" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
+
+                    {% endif %}
+
+               
+                        {% for i in Complain2.paginator.page_range %}
+                        {% if Complain2.number == i %}
+                        <li class="paginate_button page-item active"><a href="#" aria-controls="zero_config" data-dt-idx="1" tabindex="0" class="page-link">{{ i }}</a></li>
+
+                        {% else %}
+                        <li class="paginate_button page-item "><a href="?page={{ i }}" aria-controls="zero_config" data-dt-idx="2" tabindex="0" class="page-link">{{ i }}</a></li>
+
+                        {% endif %}
+                      {% endfor %}
+
+
+                        {% if Complain2.has_next %}
+                        <li class="paginate_button page-item next" id="zero_config_next"><a href="?page={{ Complain2.next_page_number }}" aria-controls="zero_config" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
+
+                      {% else %}
+                      <li class="paginate_button page-item next disabled" id="zero_config_next"><a href="#" aria-controls="zero_config" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
+                      {% endif %}
+                      </ul>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+
+  
+          </div></div>
+      </div>
+       </div>
+
+     </div>
+      
+    </div>
+
+    {% include 'TAEApp/includes/footer.html' %}
+  </div>
+{% endblock content %}
+    
+    
+
+

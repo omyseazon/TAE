@@ -1,0 +1,81 @@
+{% extends 'front_base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block content %}
+<main id="main">
+
+  <!-- ======= Breadcrumbs ======= -->
+  <section id="breadcrumbs" class="breadcrumbs">
+    <div class="container">
+
+      <div class="d-flex justify-content-between align-items-center">
+        <h2>Election Applicant Form</h2>
+        <ol>
+          <li><a href="index.html">Home</a></li>
+          <li>Apply for election</li>
+        </ol>
+      </div>
+
+    </div>
+  </section><!-- End Breadcrumbs -->
+
+  <!-- ======= Contact Section ======= -->
+ 
+  <section id="contact" class="contact">
+    <div class="container">
+
+   
+
+      <div class="row mt-5 justify-content-center" data-aos="fade-up">
+        <div class="col-lg-10">
+          <form  method="POST" class="php-email-form">
+            {% csrf_token %}
+            <h3 class="mb-3">Please fille below form </h3>
+            {% include 'TAEApp/includes/messages.html' %}
+            <div class="row mt-3">
+              <div class="col-md-6 form-group">
+                {% render_field form.TAENumber placeholder="TAE Code" class+="form-control" id+="seeAnotherField" %}
+
+              </div>
+              <div class="col-md-6 form-group mt-3 mt-md-0">
+                {% render_field form.FullName placeholder=form.FullName.label class+="form-control"  %}
+              </div>
+              <div class="col-md-6 form-group">
+                {% render_field form.Phone placeholder="Phone number" class+="form-control" id+="seeAnotherField" %}
+              </div>
+              <div class="col-md-6 form-group mt-3 mt-md-0">
+                {% render_field form.CompanyOrSponsor placeholder="Company Or Sponsor" class+="form-control"  %}
+              </div>
+              <div class="col-md-6 form-group">
+                {% render_field form.Position placeholder="Agent Name" class+="form-control"  %}
+              </div>
+              <div class="col-md-6 form-group mt-3 mt-md-0">
+                {% render_field form.JobYears placeholder="Job Years" class+="form-control"  %}
+              </div>
+              <div class="col-md-6 form-group">
+                {% render_field form.Complain placeholder="Complain" class+="form-control"  %}
+              </div>
+              <div class="col-md-6 form-group mt-3 mt-md-0">
+                {% render_field form.TakenSteps placeholder="Taken Steps" class+="form-control"  %}
+              </div>
+              <div class="col-md-6 form-group">
+                {% render_field form.Recommendation placeholder="Recommendation" class+="form-control"  %}
+              </div>
+                       </div>
+            <div class="my-3">
+              <div class="loading">Loading</div>
+              {% comment %} <div class="error-message"></div> {% endcomment %}
+           
+            </div>
+            <div class="text-left"><button type="submit">Submit</button></div>
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+  </section><!-- End Contact Section -->
+
+</main><!-- End #main -->
+
+{% endblock content %}

@@ -1,0 +1,61 @@
+{% extends 'front_base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block content %}
+<main id="main">
+
+  <!-- ======= Breadcrumbs ======= -->
+  <section id="breadcrumbs" class="breadcrumbs">
+    <div class="container">
+
+      <div class="d-flex justify-content-between align-items-center">
+        <h2>Gallery</h2>
+        <ol>
+          <li><a href="/">Home</a></li>
+          <li>Gallery</li>
+        </ol>
+      </div>
+
+    </div>
+  </section><!-- End Breadcrumbs -->
+
+  <!-- ======= Contact Section ======= -->
+ <!-- ======= Portfolio Section ======= -->
+ <section id="portfolio" class="portfolio">
+  <div class="container">
+
+    <div class="section-title text-left">
+      <h3>Gallery</h3>
+    </div>
+    <div class="row portfolio-container" data-aos="fade-up">
+      {% for Gallery in Galleries %}
+     
+
+      <div class="col-lg-4 col-md-6 portfolio-item ">
+       <img src="{{Gallery.Photo.url}}" class="img-fluid" alt="">
+
+     
+
+           <a href="{{Gallery.Photo.url}}" class="portfolio-info portfolio-lightbox preview-link" data-gallery="portfolioGallery"><h4>Click to view full image </h4></a>
+           
+      
+     </div>
+  {% endfor %}
+      
+      <div class="col-lg-4 col-md-6 portfolio-item ">
+        <img src="{% static 'front_assets/img/portfolio/tea4.jpeg' %}" class="img-fluid" alt="">
+        <a class="portfolio-info portfolio-lightbox preview-link" data-gallery="portfolioGallery" href="{% static 'front_assets/img/portfolio/tea4.jpeg' %}">
+          <h4>Click to view full image </h4>
+        </a>
+      </div>
+     
+    
+
+    </div>
+
+  </div>
+</section><!-- End Portfolio Section -->
+
+</main><!-- End #main -->
+
+{% endblock content %}
