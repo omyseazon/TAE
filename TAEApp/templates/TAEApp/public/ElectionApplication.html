@@ -28,7 +28,7 @@
 
       <div class="row mt-5 justify-content-center" data-aos="fade-up">
         <div class="col-lg-10">
-          <form  method="POST" class="php-email-form">
+          <form  method="POST" class="php-email-form" enctype="multipart/form-data">
             {% csrf_token %}
             <h3 class="mb-3">Please fill below form </h3>
             {% include 'TAEApp/includes/messages.html' %}

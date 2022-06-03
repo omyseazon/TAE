@@ -38,7 +38,7 @@
           <div class="card-body">
             <div class="row">
               <div class="col-xs-1 m-2 col-sm-1 col-lg-1 col-md-1">
-                <a type="button" href="/createElectionApplicant" class="btn btn-primary btn-lg mb-3">Add new</a>
+                {% comment %} <a type="button" href="/createElectionApplicant" class="btn btn-primary btn-lg mb-3">Add new</a> {% endcomment %}
               </div>
               {% comment %} <div class="col-xs-1 m-2 col-sm-1 col-lg-1 col-md-1">
                 <form method="post" enctype="multipart/form-data">
@@ -67,8 +67,8 @@
                         {% for ElectionApplicant in TeaElectionApplicant %}
                         <tr>
                           <th scope="row">{{ forloop.counter }}</th>
-                          <td>{{ ElectionApplicant.TAENumber }} </td>
-                          <td>{{ Member.FirstName }} {{ Member.MiddleName }} {{ Member.LastName }}</td>
+                          <td>{{ ElectionApplicant.Code }} </td>
+                          <td>{{ ElectionApplicant.FirstName }} {{ ElectionApplicant.MiddleName }} {{ ElectionApplicant.LastName }}</td>
                           <td>{{ ElectionApplicant.Emirate }}</td>
                           <td>{{ ElectionApplicant.VisaType }} </td>
                           <td>{{ ElectionApplicant.Education }}</td>
@@ -78,9 +78,7 @@
                             <a class="btn btn-primary" href="{% url 'updateElectionApplicant' ElectionApplicant.id %}"
                               >Edit</a
                             >
-                            <a class="btn btn-danger" href="{% url 'deleteElectionApplicant' ElectionApplicant.id %}" 
-                              >Delete</a
-                            >
+                          
                           </td>
                         </tr>
                         {% endfor %}
@@ -88,12 +86,12 @@
                                  </tbody>
                        <tfoot>
                        
-                            <div class="row">
+                            {% comment %} <div class="row">
                          
                               <div class="col-sm-12 ">
                                 <div id="zero_config_filter" class="dataTables_filter">
                                   <form method="get">
-                                    {% comment %} {{ myFilter.form.as_p }}  {% endcomment %}
+                                    {{ myFilter.form.as_p }}  
                                    
                                     <div class="row mt-2 mb-3">
                                       <div class="col-xs-4 mt-2 col-sm-4 col-lg-4 col-md-4">
@@ -106,7 +104,7 @@
                                     </div>
                                     
                                    
-                                </div>
+                                </div> {% endcomment %}
                                   
                                   </form>
                                   {% comment %} <label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="zero_config"></label> {% endcomment %}

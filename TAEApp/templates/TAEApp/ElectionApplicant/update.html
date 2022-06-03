@@ -39,7 +39,10 @@
         <div class="border-top">
           <div class="card-body">
             <button type="submit" class="btn btn-info">Save</button>
-            <a href="{% url 'ElectionApplicant' %}" type="submit" class="btn btn-danger">Cancel</a>
+            <a class="btn btn-danger" href="{% url 'deleteElectionApplicant' Id%}" 
+            >Delete</a
+          >
+            <a href="{% url 'ElectionApplicant' %}" type="submit" class="btn btn-primary">Close</a>
           </div>
       </div>
 
@@ -53,7 +56,7 @@
               <div class="form-group row">
                 <label  class="col-sm-3 text-right control-label col-form-label">TAE Code</label>
                 <div class="col-sm-9">
-                  {% render_field form.TAENumber placeholder="TAE Code" class+="form-control" id+="seeAnotherField" %}
+                  {% render_field form.Code placeholder="TAE Code" class+="form-control" id+="seeAnotherField" %}
                 </div>
             </div>
            

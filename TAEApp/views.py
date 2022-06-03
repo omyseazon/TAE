@@ -399,7 +399,7 @@ def editElectionApplicant(request, pk):
 
     if editForm.is_valid():
             newform = editForm.save(commit=False)
-            existingMember = Member.objects.filter(Code=newform.TAENumber)
+            existingMember = Member.objects.filter(Code=newform.Code)
             if existingMember :
                 newform.save()
                 messages.success(request, "Complain created") 
@@ -408,7 +408,7 @@ def editElectionApplicant(request, pk):
                 form = newform
                 messages.error(request, "Member Code does not exist")  
     
-    return render(request, 'TAEApp/ElectionApplicant/update.html', {'form': editForm, 'ElectionApplicantId':pk})
+    return render(request, 'TAEApp/ElectionApplicant/update.html', {'form': editForm, 'Id':pk, 'ElectionApplicantId':pk})
 
 
 @login_required    
@@ -425,7 +425,7 @@ def PublicApplicant(request):
     if request.method == 'POST':
         if form.is_valid():
             newform = form.save(commit=False)
-            existingMember = Member.objects.filter(Code=newform.TAENumber)
+            existingMember = Member.objects.filter(Code=newform.Code)
             if existingMember:
                 newform.save()
                 messages.success(request, "Application submitted") 
