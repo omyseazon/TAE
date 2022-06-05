@@ -109,3 +109,17 @@ class ElectionApplicant(models.Model):
     def __str__(self):
         Fullname = f'{self.FirstName} {self.MiddleName} {self.LastName}'
         return Fullname
+
+class FrontPage(models.Model):
+     Photo  = models.ImageField(upload_to='images')
+     Title =  models.CharField(max_length=50)
+     Description1 =  models.TextField(max_length=200)
+     PublishDate = models.DateTimeField(auto_now_add=True, blank=True)
+     def __str__(self):
+        return self.Title   
+
+class Content(models.Model):
+     Title =  models.CharField(max_length=100)
+     Description1 =  models.TextField(max_length=1000)
+     def __str__(self):
+        return self.Title             

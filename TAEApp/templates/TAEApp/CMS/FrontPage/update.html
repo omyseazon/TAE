@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="page-wrapper">
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="page-breadcrumb">
+      <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+          <h4 class="page-title">Update Front Content</h4>
+          <div class="ml-auto text-right">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">
+                 Edit  Front Content
+                </li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+      {% include 'TAEApp/includes/messages.html' %}
+    
+        
+      <form method="POST" class="form-horizontal" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="border-top">
+          <div class="card-body">
+            <button type="submit" class="btn btn-info">Save</button>
+            <a class="btn btn-danger" href="{% url 'deleteFrontPage' Id %}" 
+            >Delete</a
+          >
+            <a href="{% url 'FrontPage' %}" type="submit" class="btn btn-primary">Close</a>
+          </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+      <div class="card">
+          <div class="card-body">
+          
+              {% comment %} <h4 class="card-title">Edit FrontPage</h4> {% endcomment %}
+              <div class="form-group row">
+                  <label  class="col-sm-3 text-right control-label col-form-label">Title</label>
+                  <div class="col-sm-9">
+                    {% render_field form.Title placeholder=form.Title class+="form-control"  %}
+                  </div>
+              </div>
+              <div class="form-group row">
+                <label  class="col-sm-3 text-right control-label col-form-label">Description</label>
+                <div class="col-sm-9">
+                  {% render_field form.Description1 placeholder="Description" class+="form-control" id+="seeAnotherField" %}
+                </div>
+            </div>
+           
+              <div class="form-group row">
+                <label  class="col-sm-3 text-right control-label col-form-label">Photo</label>
+                <div class="col-sm-9">
+                  {% render_field form.Photo placeholder="Photo" class+="form-control" id+="seeAnotherField" %}
+                </div>
+            </div>
+   
+
+
+          </div>
+        </div>
+      </div>
+
+   
+
+            </div>
+          </div>
+        </div>
+    </div>
+      </form>
+        
+
+    
+    </div>
+    {% include 'TAEApp/includes/footer.html' %}
+  </div>
+{% endblock content %}
+    
+    
+
+

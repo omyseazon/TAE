@@ -24,11 +24,13 @@ import csv
 # Create your views here.
 # Create your views here.
 def home(request):
+    FrontContents = FrontPage.objects.all()
     Galleries = Gallery.objects.all()
     TaeNews = News.objects.all()
+    Contents= Content.objects.all()
     SampleNews = TaeNews[0:4]
     images = Galleries[1:8]
-    return render(request, 'home.html',{'Galleries':images, 'News':SampleNews})    
+    return render(request, 'home.html',{'Contents':Contents,'FrontContents':FrontContents,'Galleries':images, 'News':SampleNews})    
 
 def publicGallery(request):
     Galleries = Gallery.objects.all()
@@ -435,4 +437,101 @@ def PublicApplicant(request):
             return redirect('/ApplyForElection')
         else:
             messages.error(request, "Form Error")  
-    return render(request, 'TAEApp/public/ElectionApplication.html', {'form': form})    
+    return render(request, 'TAEApp/public/ElectionApplication.html', {'form': form})
+
+
+    #FrontPage view //////////////////////////////////////////////////////////////////////////
+@login_required    
+def FrontPageView(request):
+    _FrontPage = FrontPage.objects.all()
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(_FrontPage, 50)
+    try:
+        _FrontPage = paginator.page(page)
+    except PageNotAnInteger:
+        _FrontPage = paginator.page(1)
+    except EmptyPage:
+        _FrontPage = paginator.page(paginator.num_pages)
+    return render(request, 'TAEApp/CMS/FrontPage/list.html', {'TeaFrontPage': _FrontPage})  
+
+@login_required    
+def createFrontPage(request):
+    form = FrontPageForm(request.POST or None, request.FILES)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Content created")  
+            return redirect('/createFrontPage')
+        else:
+            messages.error(request, "Form Error")  
+    return render(request, 'TAEApp/CMS/FrontPage/create.html', {'form': form})
+
+@login_required    
+def editFrontPage(request, pk):
+    pickFrontPage = FrontPage.objects.get(pk=pk)
+    editForm = FrontPageForm(request.POST or None,request.FILES or None, instance=pickFrontPage)
+
+    if editForm.is_valid():
+        editForm.save()
+        return redirect('/FrontPage')
+    return render(request, 'TAEApp/CMS/FrontPage/update.html', {'form': editForm, 'Id':pk})
+
+
+@login_required    
+def deleteFrontPage(request, pk):
+    pickFrontPage = FrontPage.objects.get(pk=pk)
+    if request.method == 'POST':
+        pickFrontPage.delete()
+        return redirect('/FrontPage')
+    context = {'item': pickFrontPage} 
+    return render(request, 'TAEApp/CMS/FrontPage/delete.html', context)
+    
+
+ #Content view //////////////////////////////////////////////////////////////////////////
+@login_required    
+def ContentView(request):
+    _Content = Content.objects.all()
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(_Content, 50)
+    try:
+        _Content = paginator.page(page)
+    except PageNotAnInteger:
+        _Content = paginator.page(1)
+    except EmptyPage:
+        _Content = paginator.page(paginator.num_pages)
+    return render(request, 'TAEApp/CMS/Content/list.html', {'TeaContent': _Content})  
+
+@login_required    
+def createContent(request):
+    form = ContentForm(request.POST or None, request.FILES)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Content created")  
+            return redirect('/createContent')
+        else:
+            messages.error(request, "Form Error")  
+    return render(request, 'TAEApp/CMS/Content/create.html', {'form': form})
+
+@login_required    
+def editContent(request, pk):
+    pickContent = Content.objects.get(pk=pk)
+    editForm = ContentForm(request.POST or None,request.FILES or None, instance=pickContent)
+
+    if editForm.is_valid():
+        editForm.save()
+        return redirect('/Content')
+    return render(request, 'TAEApp/CMS/Content/update.html', {'form': editForm, 'Id':pk})
+
+
+@login_required    
+def deleteContent(request, pk):
+    pickContent = Content.objects.get(pk=pk)
+    if request.method == 'POST':
+        pickContent.delete()
+        return redirect('/Content')
+    context = {'item': pickContent} 
+    return render(request, 'TAEApp/CMS/Content/delete.html', context)
+    

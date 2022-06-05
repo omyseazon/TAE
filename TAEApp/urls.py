@@ -50,6 +50,18 @@ urlpatterns = [
       path('ComplainTwo', views.ComplainTwo, name='ComplainTwo'),
       path('ApplyForElection', views.PublicApplicant, name='ApplyForElection'),
 
+      #FrontPage urls
+      path('FrontPage', views.FrontPageView, name = 'FrontPage'),
+      path('createFrontPage', views.createFrontPage, name = 'createFrontPage'),
+      path('updateFrontPage/<int:pk>', views.editFrontPage, name = 'updateFrontPage'),
+      path('deleteFrontPage/<int:pk>', views.deleteFrontPage, name='deleteFrontPage'),
+      
+       #Content urls
+      path('Content', views.ContentView, name = 'Content'),
+      path('createContent', views.createContent, name = 'createContent'),
+      path('updateContent/<int:pk>', views.editContent, name = 'updateContent'),
+      path('deleteContent/<int:pk>', views.deleteContent, name='deleteContent'),
+
       #basic urls
       path('dashboard', views.index, name='index'),
       path('', views.home, name='home'),

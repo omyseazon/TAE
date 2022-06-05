@@ -9,30 +9,22 @@
   <!-- ======= About Us Section ======= -->
   <section id="about-us" class="about-us">
     <div class="container" data-aos="fade-up">
-      <div class="section-title text-left">
-        <h3>About us</h3>
-        
-      </div>
+     
+      {% for content in Contents %}
       <div class="row content">
-        <div class="col-lg-12" >
-          <p>The Tanzanian Community in the United Arab Emirates also known as TCAE is a SOCIAL AND CULTURAL ASSOSICIATION which is non-political and non-profit Association. The objective of the Association is to unify the efforts of Tanzanians residing in the United Arab Emirates in promoting and advancing, their social and cultural well being and welfare; to assist members in times of need, to advice investments models back home, and to promote social, cultural and educational, participation between and among the members of the Association.</p>
-        </div>
         <div class="col-lg-12 pt-4 pt-lg-0" >
-          <div class="section-title text-left">
-            <h3>Kuhusu sisi</h3>
-          </div>
+      <div class="section-title text-left">
+        <h3>{{content.Title}}</h3>
+      </div>
+        
           <p>
-            Jumuiya ya Watanzania wanaoishi Emirates (JUWATA) ni chombo ambacho si cha kisiasa wala si cha biashara. Shabaha na madhumuni ya Jumuiya hii ni kuwaunganisha Watanzania wote wanaoishi kwenye Emirates ili kuendeleza na kulinda masla hi yao ya kijamii, kiuchumi na kiutamaduni lengo hasa likiwa ni kufahamiana, kusaidiana nyakati za dhiki na faraja na kukuza na kuendeleza shughuli za Elimu, Utamaduni na kuendeleza na kukuza mahusiano mazuri baina ya Watanzania waishio hapa na wenyeji wao Waimarati.
+            {{content.Description1}}
           </p>
         </div>
-        <div class="col-lg-12 pt-4 mt-4 pt-lg-0" >
-          <div class="section-title text-left">
-            <h3>History</h3>
-          </div>
-          <p>Jumuiya yetu ilianzishwa mwaka 2006 wakati Balozi wa kwanza wa Tanzania hapa UAE akiwa mheshimiwa Mstaafu Mustafa Nyag’anyi.Jumuiya yetu ilianzishwa mwaka 2006 wakati Balozi wa kwanza wa Tanzania hapa UAE akiwa mheshimiwa Mstaafu Mustafa Nyag’anyi. Mwaka 2007 tuliandaa mkutano na kumualika Mheshimiwa Jakaya Mrisho Kikwete , Rais wa Awamu ya Nne. 2007 tulifanikiwa kupata usajili wa muda na bado tunatumia uasajili wa muda. December mwaka 2007 uchaguzi mkuu wa kwanza ulifanyika Dubai na ulijuisha wana diaspora wote wa UAE. Tuunganeni ili kufanikisha malengo ya jumuiya.</p>
-        </div>
+       
       </div>
-
+    
+      {% endfor %}
     </div>
   </section><!-- End About Us Section -->
 
