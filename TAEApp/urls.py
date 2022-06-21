@@ -49,6 +49,9 @@ urlpatterns = [
       path('ComplainOne', views.ComplainOne, name='ComplainOne'),
       path('ComplainTwo', views.ComplainTwo, name='ComplainTwo'),
       path('ApplyForElection', views.PublicApplicant, name='ApplyForElection'),
+      path('AboutMember', views.AboutMember, name='AboutMember'),
+      path('Leadership', views.Leadership, name='Leadership'),
+      path('AboutElection', views.AboutElection, name='AboutElection'),
 
       #FrontPage urls
       path('FrontPage', views.FrontPageView, name = 'FrontPage'),

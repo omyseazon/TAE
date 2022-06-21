@@ -34,47 +34,61 @@
             <h3 class="mb-3">Fill your details</h3>
             {% include 'TAEApp/includes/messages.html' %}
             <div class="row mt-3">
-              <div class="col-md-6 form-group">
-                {% render_field form.FullName placeholder=form.FullName.label class+="form-control"  %}
+              
+             <div class="col-md-6 form-group">
+                <label class="mb-2">Full Name</label>
+                {% render_field form.FullName  class+="form-control"  %}
 
               </div>
-              <div class="col-md-6 form-group mt-3 mt-md-0">
-                {% render_field form.PhoneUAE placeholder="Phone UAE" class+="form-control" id+="seeAnotherField" %}
+              <div class="col-md-6 form-group">
+                <label class="mb-2">Phone UAE</label>
+                {% render_field form.PhoneUAE class+="form-control" id+="seeAnotherField" %}
+              </div>
+             <div class="col-md-6 form-group">
+                <label class="mb-2">Phone TZ</label>
+                {% render_field form.PhoneTZ  class+="form-control" id+="seeAnotherField" %}
               </div>
               <div class="col-md-6 form-group">
-                {% render_field form.PhoneTZ placeholder="Phone TZ" class+="form-control" id+="seeAnotherField" %}
-              </div>
-              <div class="col-md-6 form-group mt-3 mt-md-0">
-                {% render_field form.Address placeholder=form.Address.label class+="form-control"  %}
+                <label class="mb-2">Address</label>
+                {% render_field form.Address  class+="form-control"  %}
               </div>
             
-              <div class="col-md-6 form-group mt-3 mt-md-0">
-                {% render_field form.AgentName placeholder="Agent Name" class+="form-control"  %}
+              <div class="col-md-6 form-group">
+                <label class="mb-2">Agent name/company</label>
+                {% render_field form.AgentName  class+="form-control"  %}
+              </div>
+             <div class="col-md-6 form-group">
+                <label class="mb-2">Agent Phone TZ</label>
+                {% render_field form.AgentPhoneTZ  class+="form-control"  %}
               </div>
               <div class="col-md-6 form-group">
-                {% render_field form.AgentPhoneTZ placeholder="Agent Phone TZ" class+="form-control"  %}
+                <label class="mb-2">Agent Phone UAE</label>
+                {% render_field form.AgentPhoneUAE  class+="form-control"  %}
               </div>
-              <div class="col-md-6 form-group mt-3 mt-md-0">
-                {% render_field form.AgentPhoneUAE placeholder="Agent Phone UAE" class+="form-control"  %}
+             <div class="col-md-6 form-group">
+                <label class="mb-2">Service Type</label>
+                {% render_field form.ServiceType  class+="form-control"  %}
               </div>
               <div class="col-md-6 form-group">
-                {% render_field form.ServiceType placeholder="Service Type" class+="form-control"  %}
+                <label class="mb-2">VisaType</label>
+                {% render_field form.VisaType  class+="form-control"  %}
               </div>
-              <div class="col-md-6 form-group mt-3 mt-md-0">
-                {% render_field form.VisaType placeholder="VisaType" class+="form-control"  %}
+              <div class="col-md-6 form-group">
+                <label class="mb-2">Visa Status</label>
+                {% render_field form.VisaStatus  class+="form-control"  %}
               </div>
-              <div class="col-md-6 form-group mt-3 mt-md-0">
-                {% render_field form.VisaStatus placeholder="Visa Status" class+="form-control"  %}
-              </div>
-              <div class="col-md-6 form-group mt-3 mt-md-0">
-                {% render_field form.AmountPaidTZ placeholder="Amount paid in Tanzania" class+="form-control"  %}
+              <div class="col-md-6 form-group">
+                <label class="mb-2">Agent fee paid in Tanzania</label>
+                {% render_field form.AmountPaidTZ  class+="form-control"  %}
               </div>
              
-              <div class="col-md-6 form-group mt-3 mt-md-0">
-                {% render_field form.AmountPaidUAE placeholder="Amount paid in UAE" class+="form-control"  %}
+              <div class="col-md-6 form-group">
+                <label class="mb-2">Agent fee paid in UAE</label>
+                {% render_field form.AmountPaidUAE  class+="form-control"  %}
               </div>
-              <div class="col-md-6 form-group mt-3 mt-md-0">
-                {% render_field form.Description placeholder=form.Description.label class+="form-control"  %}
+              <div class="col-md-6 form-group">
+                <label class="mb-2">Description</label>
+                {% render_field form.Description  class+="form-control"  %}
               </div>
           
             <div class="my-3">

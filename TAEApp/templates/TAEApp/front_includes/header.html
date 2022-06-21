@@ -10,35 +10,23 @@
         <ul>
           <li><a href="/" class="active">Home</a></li>
 
-          {% comment %} <li class="dropdown"><a href="#"><span>About</span> <i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li><a href="about.html">About Us</a></li>
-              <li><a href="team.html">Team</a></li>
-              <li><a href="testimonials.html">Testimonials</a></li>
-              <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
-                <ul>
-                  <li><a href="#">Deep Drop Down 1</a></li>
-                  <li><a href="#">Deep Drop Down 2</a></li>
-                  <li><a href="#">Deep Drop Down 3</a></li>
-                  <li><a href="#">Deep Drop Down 4</a></li>
-                  <li><a href="#">Deep Drop Down 5</a></li>
-                </ul>
-              </li>
-            </ul>
-          </li> {% endcomment %}
-
-          <li><a href="publicGallery">Gallery</a></li>
-         
           <li class="dropdown"><a href="#"><span>Useful Links</span> <i class="bi bi-chevron-right"></i></a>
             <ul>
-              <li class="dropdown"><a href="#"><span>Member</span> <i class="bi bi-chevron-right"></i></a>
+              {% comment %} <li class="dropdown"><a href="#"><span>Member</span> <i class="bi bi-chevron-right"></i></a>
                 <ul>
-                  <li><a href="/">Types of membership</a></li>
+                  <li><a href="/AboutMember">About membership</a></li>
                   <li><a href="becomeMember">Become a member</a></li>
                 
                 </ul>
+              </li> {% endcomment %}
+
+              <li class="dropdown"><a href="#"><span>Next election</span> <i class="bi bi-chevron-right"></i></a>
+                <ul>
+                  <li><a href="AboutElection">About election</a></li>
+                  <li><a href="ApplyForElection">Apply For Position</a></li>
+                
+                </ul>
               </li>
-              <li><a href="ApplyForElection">Next election</a></li>
               <li class="dropdown"><a href="#"><span>Log a complain</span> <i class="bi bi-chevron-right"></i></a>
                 <ul>
                   <li><a href="ComplainOne">Cheated by agents</a></li>
@@ -81,8 +69,14 @@
               <li><a href="/">Your feedback</a></li>
             </ul>
           </li>  
-          <li><a href="/">Leadership</a></li>
-          <li><a href="/">Contact</a></li>
+          <li><a href="/Leadership">Leadership</a></li>
+          <li class="dropdown"><a href="#"><span>Membership</span> <i class="bi bi-chevron-right"></i></a>
+            <ul>
+                  <li><a href="/AboutMember">About membership</a></li>
+                  <li><a href="becomeMember">Become a member</a></li>
+          </ul>
+        </li>
+          {% comment %} <li><a href="/">Contact</a></li> {% endcomment %}
           {% if user.is_authenticated %}
               {% comment %} Hi {{ user.username }}! {% endcomment %}
               <li><a href="/dashboard">Console</a></li>

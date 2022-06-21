@@ -34,8 +34,16 @@ def home(request):
 
 def publicGallery(request):
     Galleries = Gallery.objects.all()
-    
     return render(request, 'TAEApp/public/publicGallery.html',{'Galleries':Galleries})  
+
+def AboutMember(request):
+    return render(request, 'TAEApp/public/AboutMember.html')  
+
+def Leadership(request):
+    return render(request, 'TAEApp/public/Leadership.html')  
+
+def AboutElection(request):
+    return render(request, 'TAEApp/public/AboutElection.html') 
 
 @login_required    
 def index(request):

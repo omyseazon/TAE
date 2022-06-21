@@ -36,8 +36,21 @@ class Member(models.Model):
         return Fullname
 
 class Gallery(models.Model):
-     Photo  = models.ImageField(upload_to='images/')
+     Photo  = models.ImageField(upload_to='images/Events/Gallery/')
 
+class Category(models.Model):
+       Name =  models.CharField(max_length=50) 
+
+class Event(models.Model):
+     Category = models.ForeignKey(Category, verbose_name="Category", on_delete=models.CASCADE)
+     Gallery = models.ManyToManyField(Gallery)
+     Photo  = models.ImageField(upload_to='images/Events/')
+     Title =  models.CharField(max_length=50)
+     Description1 =  models.TextField(max_length=200)
+     Description2 =  models.TextField(max_length=200, blank=True)
+     PublishDate = models.DateTimeField(auto_now_add=True, blank=True)
+     def __str__(self):
+        return self.Title
 
 class News(models.Model):
      Photo  = models.ImageField(upload_to='images')
