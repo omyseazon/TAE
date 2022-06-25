@@ -1,49 +1,52 @@
 {% load static %}
 
  <!-- ======= Hero Section ======= -->
- <section id="hero">
-    <div id="heroCarousel" data-bs-interval="5000" class="carousel slide carousel-fade" data-bs-ride="carousel">
+ <section id="hero" class="d-flex align-items-center" style="background-color: #00c606;">
+  {% for content in FrontContents %}
+  {% if forloop.counter0 == 0 %}
+  <div class="container" >
+        <div class="row animate__animated animate__fadeInUp">
+            <div class="col-lg-6 d-flex text-light flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1">
+                <h1>{{content.Title}}</h1>
+                <p>{{content.Description1}}</p>
+                <div class="d-flex justify-content-center justify-content-lg-start">
+                  <div class="text-center"><a href="ApplyForElection" class="btn btn-light">Apply Now</a></div>
 
-      <div class="carousel-inner" role="listbox">
-
-        <!-- Slide 1 -->
-        {% for content in FrontContents %}
-        {% if forloop.counter0 == 0 %}
-        <div class="carousel-item active" style="background-image: url({{content.Photo.url}} );">
-          <div class="carousel-container">
-            <div class="carousel-content animate__animated animate__fadeInUp">
+                </div>
+            </div>
+            <div class="col-lg-6 order-1 order-lg-2 hero-img">
+                <img src="{{content.Photo.url}}"
+                     class="img-fluid animated"
+                     alt="" />
+            </div>
+      {% comment %} <div class="row animate__animated animate__fadeInUp">
+        <div class="col-6 justify-content-center flex">
+          <img src=" {{content.Photo.url}}" /> 
+          </div
+          <div class="col-6">
+            <div class="carousel-content ">
+        
               <h2>{{content.Title}}</h2>
               <p>{{content.Description1}}</p>
-              <div class="text-center"><a href="" class="btn-get-started">Read More</a></div>
+              <div class="text-center"><a href="ApplyForElection" class="btn-get-started">Apply Now</a></div>
             </div>
-          </div>
-        </div>
-        {% else %}
-        <div class="carousel-item" style="background-image: url({{content.Photo.url}} );">
-          <div class="carousel-container">
-            <div class="carousel-content animate__animated animate__fadeInUp">
-              <h2>{{content.Title}}</h2>
-              <p>{{content.Description1}}</p>
-              <div class="text-center"><a href="" class="btn-get-started">Read More</a></div>
-            </div>
-          </div>
-        </div>
-        {% endif %}
-       
-        {% endfor %}
-       
-
+            </div
+        </div
+     
+  
+    </div> {% endcomment %}
+  </div>
+  {% else %}
+  <div class="carousel-item" style="background-image: url({{content.Photo.url}} );">
+    <div class="carousel-container">
+      <div class="carousel-content animate__animated animate__fadeInUp">
+        <h2>{{content.Title}}</h2>
+        <p>{{content.Description1}}</p>
+        <div class="text-center"><a href="ApplyForElection" class="btn-get-started">Apply Now</a></div>
       </div>
-
-      <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
-      </a>
-
-      <a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
-        <span class="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
-      </a>
-
-      <ol class="carousel-indicators" id="hero-carousel-indicators"></ol>
-
     </div>
+  </div>
+  {% endif %}
+ 
+  {% endfor %}
   </section><!-- End Hero -->
