@@ -96,13 +96,18 @@ def createMember(request):
 
         if form.is_valid():
             newform = form.save(commit=False)
-            newform.save()
-            Number = newform.id + 20
-            Code = f"TAE-{Number}"
-            newform.Code = Code
-            newform.save()
-            messages.success(request, 'Successful added')
-            return redirect('/createMember')   
+            existingMember = Member.objects.filter(PhoneNumber=newform.PhoneNumber)
+            if existingMember:
+                messages.success(request, 'Phone Number already exist')
+                return redirect('/createMember')
+            else:    
+                newform.save()
+                Number = newform.id + 20
+                Code = f"TAE-{Number}"
+                newform.Code = Code
+                newform.save()
+                messages.success(request, 'Successful added')
+                return redirect('/createMember')   
         else:
             messages.error(request, 'Form error')
             return redirect('/createMember')    
@@ -138,14 +143,18 @@ def becomeMember (request):
 
         if form.is_valid():
             newform = form.save(commit=False)
-            newform.save()
-            Number = newform.id + 20
-            Code = f"TAE-{Number}"
-            newform.Code = Code
-            newform.save()
-            Password = f'TAE@{now().year}{now().month}{now().day}{now().hour}{now().minute}'
-            messages.success(request, f'TAE Credentials, Username is {newform.Code} and Password is {Password}, Also we sent your Credentials to your email.')
-            return redirect('/becomeMember')   
+            existingMember = Member.objects.filter(PhoneNumber=newform.PhoneNumber)
+            if existingMember:
+                messages.success(request, 'Phone Number already exist')
+            else:    
+                newform.save()
+                Number = newform.id + 20
+                Code = f"TAE-{Number}"
+                newform.Code = Code
+                newform.save()
+                Password = f'TAE@{now().year}{now().month}{now().day}{now().hour}{now().minute}'
+                messages.success(request, f'TAE Credentials, Username is {newform.Code} and Password is {Password}, Also we sent your Credentials to your email.')
+                return redirect('/becomeMember')   
         else:
             messages.error(request, 'Form error')
             return redirect('/becomeMember')  
