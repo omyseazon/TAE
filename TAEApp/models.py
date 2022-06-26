@@ -137,14 +137,7 @@ class Content(models.Model):
      Description1 =  models.TextField(max_length=1000)
 #      Sequence = models.IntegerField()
      def __str__(self):
-        return self.Title 
-
-class ForgotID(models.Model):
-        Phone =  models.CharField(max_length=15)
-        FirstName =  models.CharField(max_length=50)
-        LastName =  models.CharField(max_length=50)
-        def __str__(self):
-           return self.Phone   
+        return self.Title   
 
 class Article(models.Model):
      Photo  = models.ImageField(upload_to='images')

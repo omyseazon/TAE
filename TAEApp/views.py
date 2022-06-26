@@ -45,6 +45,18 @@ def Leadership(request):
 def AboutElection(request):
     return render(request, 'TAEApp/public/AboutElection.html') 
 
+def ObtainMemberID(request):
+    if request.method == 'POST':
+        Phone = request.POST.get('PhoneNumber')
+        existingMember = Member.objects.filter(PhoneNumber=Phone)
+        if existingMember:
+            messages.success(request, f"Your Member ID is {existingMember[0].Code}")
+            return redirect('/ObtainMemberID') 
+        else:
+            messages.error(request, "Member with the below data does not exist")  
+            return redirect('/ObtainMemberID')
+        
+    return render(request, 'TAEApp/public/ObtainMemberID.html') 
 @login_required    
 def index(request):
     return render(request, 'TAEApp/index.html')  
