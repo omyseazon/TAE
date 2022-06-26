@@ -1,3 +1,4 @@
+from typing import Sequence
 from django.db import models
 from django.forms import CharField
 from h11 import Data
@@ -7,7 +8,7 @@ from h11 import Data
 
 Permits =(("Residence", "Residence"),("Visit", "Visit"))
 Emirates =(("Abu Dhabi", "Abu Dhabi"),("Dubai","Dubai"),("Sharjah ","Sharjah "),("Ajman","Ajman"),("Umm Al Quwain ","Umm Al Quwain "),("Ras Al Khaimah","Ras Al Khaimah"),("Fujairah","Fujairah"))
-EmploymentStatuses =(("Full time","Full time"), ("Part time ","Part time "),("Not applicable","Not applicable"), ("Seeker","Seeker"), ("Own a business","Own a business"), ("Self-employer","Self-employer" ))
+EmploymentStatuses =(("Full time","Full time"), ("Part time ","Part time "),("Not applicable","Not applicable"), ("Job Seeker","Job Seeker"), ("Own a business","Own a business"), ("Self-employer","Self-employer" ))
 genders =(("Male", "Male"),("Female", "Female"),)
 VisaTypes = (("Golden visa", "Golden visa"),("Residence visa","Residence visa"),("Visit visa ","Visit visa "),("Transit visa","Transit visa"))
 Educations =(("Secondary school", "Secondary school"),("High school","High school"),("Certificate ","Certificate "),("Diploma","Diploma"),("Bachelor","Bachelor"),("Masters","Masters"),("PhD","PhD"))
@@ -134,5 +135,23 @@ class FrontPage(models.Model):
 class Content(models.Model):
      Title =  models.CharField(max_length=100)
      Description1 =  models.TextField(max_length=1000)
+#      Sequence = models.IntegerField()
      def __str__(self):
-        return self.Title             
+        return self.Title 
+
+class ForgotID(models.Model):
+        Phone =  models.CharField(max_length=15)
+        FirstName =  models.CharField(max_length=50)
+        LastName =  models.CharField(max_length=50)
+        def __str__(self):
+           return self.Phone   
+
+class Article(models.Model):
+     Photo  = models.ImageField(upload_to='images')
+     Title =  models.CharField(max_length=50)
+     Description =  models.TextField(max_length=200)
+     PublishDate = models.DateTimeField(auto_now_add=True, blank=True)
+     EndDate = models.DateTimeField(auto_now_add=True, blank=True)
+     isActive = models.BooleanField(default=False)
+     def __str__(self):
+        return self.Title                              

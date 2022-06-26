@@ -62,41 +62,53 @@
             {% include 'TAEApp/includes/messages.html' %}
             <div class="row mt-3">
               <div class="col-md-6 form-group">
-                {% render_field form.FirstName placeholder=form.FirstName.label class+="form-control"  %}
+                <label class="mb-2">First Name</label>
+                {% render_field form.FirstName class+="form-control"  %}
 
               </div>
               <div class="col-md-6 form-group mt-3 mt-md-0">
-                {% render_field form.MiddleName placeholder=form.MiddleName.label class+="form-control" id+="seeAnotherField" %}
+                <label class="mb-2">Middle Name</label>
+                {% render_field form.MiddleName class+="form-control" id+="seeAnotherField" %}
               </div>
               <div class="col-md-6 form-group">
-                {% render_field form.LastName placeholder=form.LastName.label class+="form-control"  %}
+                <label class="mb-2">Last Name</label>
+                {% render_field form.LastName class+="form-control"  %}
               </div>
               <div class="col-md-6 form-group mt-3 mt-md-0">
-                {% render_field form.PhoneNumber placeholder=form.PhoneNumber.label class+="form-control" id+="seeAnotherField" %}
+                <label class="mb-2">Phone Number</label>
+                {% render_field form.PhoneNumber class+="form-control" id+="seeAnotherField" %}
               </div>
               <div class="col-md-6 form-group">
-                {% render_field form.EmailAddress placeholder=form.EmailAddress.label class+="form-control"  %}
+                <label class="mb-2">Email</label>
+                {% render_field form.EmailAddress class+="form-control"  %}
               </div>
               <div class="col-md-6 form-group mt-3 mt-md-0">
-                {% render_field form.Nationality placeholder=form.Nationality.label class+="form-control"  %}
+                <label class="mb-2">Nationality</label>
+                {% render_field form.Nationality class+="form-control"  %}
               </div>
               <div class="col-md-6 form-group">
-                {% render_field form.City placeholder=form.City.label class+="form-control"  %}
+                <label class="mb-2">City</label>
+                {% render_field form.City class+="form-control"  %}
               </div>
               <div class="col-md-6 form-group mt-3 mt-md-0">
-                {% render_field form.Street placeholder=form.Street.label class+="form-control"  %}
+                <label class="mb-2">Street</label>
+                {% render_field form.Street class+="form-control"  %}
               </div>
               <div class="col-md-6 form-group">
-                {% render_field form.Permit placeholder=form.Permit.label class+="form-control"  %}
+                <label class="mb-2">Permit</label>
+                {% render_field form.Permit class+="form-control"  %}
               </div>
               <div class="col-md-6 form-group mt-3 mt-md-0">
-                {% render_field form.Emirate placeholder=form.Emirate.label class+="form-control"  %}
+                <label class="mb-2">Emirate</label>
+                {% render_field form.Emirate class+="form-control"  %}
               </div>
               <div class="col-md-6 form-group mt-3 mt-md-0">
-                {% render_field form.EmploymentStatus placeholder=form.EmploymentStatus.label class+="form-control"  %}
+                <label class="mb-2">Employment</label>
+                {% render_field form.EmploymentStatus  class+="form-control"  %}
               </div>
               <div class="col-md-6 form-group mt-3 mt-md-0">
-                {% render_field form.CompanyName placeholder=form.CompanyName.label class+="form-control"  %}
+                <label class="mb-2">Company Name</label>
+                {% render_field form.CompanyName  class+="form-control"  %}
               </div>
               <div class="col-md-6 form-group mt-3 mt-md-0">
                 <div class="row">
