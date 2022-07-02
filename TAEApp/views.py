@@ -143,18 +143,23 @@ def becomeMember (request):
 
         if form.is_valid():
             newform = form.save(commit=False)
+            countryCode = newform.PhoneNumber[0 : 3]
+            if countryCode != "+971":
+                messages.success(request, 'Phone Number must start with +971')
+                return redirect('/becomeMember', {'form': form}) 
             existingMember = Member.objects.filter(PhoneNumber=newform.PhoneNumber)
             if existingMember:
                 messages.success(request, 'Phone Number already exist')
-            else:    
-                newform.save()
-                Number = newform.id + 20
-                Code = f"TAE-{Number}"
-                newform.Code = Code
-                newform.save()
-                Password = f'TAE@{now().year}{now().month}{now().day}{now().hour}{now().minute}'
-                messages.success(request, f'TAE Credentials, Username is {newform.Code} and Password is {Password}, Also we sent your Credentials to your email.')
-                return redirect('/becomeMember')   
+                return redirect('/becomeMember', {'form': form}) 
+              
+            newform.save()
+            Number = newform.id + 20
+            Code = f"TAE-{Number}"
+            newform.Code = Code
+            newform.save()
+            Password = f'TAE@{now().year}{now().month}{now().day}{now().hour}{now().minute}'
+            messages.success(request, f'TAE Credentials, Username is {newform.Code} and Password is {Password}.')
+            return redirect('/becomeMember')   
         else:
             messages.error(request, 'Form error')
             return redirect('/becomeMember')  
@@ -458,6 +463,10 @@ def PublicApplicant(request):
             newform = form.save(commit=False)
             existingMember = Member.objects.filter(Code=newform.Code)
             if existingMember:
+                existingMemberApplication = ElectionApplicant.objects.filter(Code=newform.Code)
+                if existingMemberApplication:
+                    messages.error(request, "You have already applied the position.")  
+                    return redirect('/ApplyForElection')
                 newform.save()
                 messages.success(request, "Application submitted") 
             else:
