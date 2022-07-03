@@ -69,11 +69,12 @@ def ObtainPassword(request):
         if existingMember:
             Email = existingMember[0].EmailAddress
             Password = f'{now().year}{now().month}{now().day}{now().hour}{now().minute}'
-            otpText.Code = Password
+            coolCode = Password
+            otpText.Code = coolCode
             otpText.isActive = True
             otpText.MemberID = MemberID
             otpText.save()
-            text = f'TAE One Time Password is {Password}.'
+            text = f'TAE One Time Password is {coolCode}.'
             messages.success(request, f'Your verification code is sent to {Email}' )
             EmailSender(text)
             return redirect('/VerifyCode') 
