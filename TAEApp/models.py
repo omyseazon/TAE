@@ -62,7 +62,7 @@ class News(models.Model):
      def __str__(self):
         return self.Title
 
-Services =(("Kazi UAE", "Kazi UAE"),("Kununua Biashara", "Kununua Biashara"),("Matibabu", "Matibabu"),("Masomo", "Masomo"),("Mengine", "Mengine"),)
+Services =(("Kazi UAE", "Kazi UAE"),("Kununua Bidhaa", "Kununua Bidhaa"),("Kuuza Bidhaa", "Kuuza Bidhaa"),("Matibabu", "Matibabu"),("Masomo", "Masomo"),("Mengine", "Mengine"),)
 class Complain1(models.Model):
      FullName =  models.CharField(max_length=50)
      PhoneUAE =  models.CharField(max_length=50, blank=True)
