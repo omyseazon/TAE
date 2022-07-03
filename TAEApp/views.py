@@ -99,7 +99,7 @@ def createMember(request):
             existingMember = Member.objects.filter(PhoneNumber=newform.PhoneNumber)
             if existingMember:
                 messages.success(request, 'Phone Number already exist')
-                return redirect('/createMember')
+                return render(request, 'TAEApp/Members/create.html', {'form': form})
             else:    
                 newform.save()
                 Number = newform.id + 20
@@ -110,7 +110,7 @@ def createMember(request):
                 return redirect('/createMember')   
         else:
             messages.error(request, 'Form error')
-            return redirect('/createMember')    
+            return render(request, 'TAEApp/Members/create.html', {'form': form})    
     return render(request, 'TAEApp/Members/create.html', {'form': form})
 
 @login_required    
@@ -146,11 +146,11 @@ def becomeMember (request):
             countryCode = newform.PhoneNumber[0 : 3]
             if countryCode != "+971":
                 messages.success(request, 'Phone Number must start with +971')
-                return redirect('/becomeMember', {'form': form}) 
+                return render(request, 'TAEApp/public/memberform.html', {'form': form}) 
             existingMember = Member.objects.filter(PhoneNumber=newform.PhoneNumber)
             if existingMember:
                 messages.success(request, 'Phone Number already exist')
-                return redirect('/becomeMember', {'form': form}) 
+                return render(request, 'TAEApp/public/memberform.html', {'form': form})
               
             newform.save()
             Number = newform.id + 20
@@ -376,12 +376,14 @@ def ComplainTwo(request):
             if existingMember:
                 newform.save()
                 messages.success(request, "Complain submitted") 
+                return redirect('/ComplainTwo')
             else:
-                form = newform
-                messages.error(request, "Member Code does not exist")  
-            return redirect('/ComplainTwo')
+                messages.error(request, "Member Code does not exist")
+                return render(request, 'TAEApp/public/ComplainTwo.html', {'form': form})  
+            
         else:
-            messages.error(request, "Form Error")  
+            messages.error(request, "Form Error") 
+            return render(request, 'TAEApp/public/ComplainTwo.html', {'form': form}) 
     return render(request, 'TAEApp/public/ComplainTwo.html', {'form': form})
 
 def ComplainOne(request):
@@ -390,9 +392,10 @@ def ComplainOne(request):
         if form.is_valid():
             form.save()
             messages.success(request, "Complain submitted")  
-            return redirect('/ComplainTwo')
+            return render(request, 'TAEApp/public/ComplainOne.html', {'form': form}) 
         else:
-            messages.error(request, "Form Error")  
+            messages.error(request, "Form Error") 
+            return render(request, 'TAEApp/public/ComplainOne.html', {'form': form})  
     return render(request, 'TAEApp/public/ComplainOne.html', {'form': form}) 
 
 #ElectionApplicant view //////////////////////////////////////////////////////////////////////////
@@ -466,15 +469,16 @@ def PublicApplicant(request):
                 existingMemberApplication = ElectionApplicant.objects.filter(Code=newform.Code)
                 if existingMemberApplication:
                     messages.error(request, "You have already applied the position.")  
-                    return redirect('/ApplyForElection')
+                    return render(request, 'TAEApp/public/ElectionApplication.html', {'form': form})
                 newform.save()
                 messages.success(request, "Application submitted") 
             else:
                 form = newform
                 messages.error(request, "Member Code does not exist")  
-            return redirect('/ApplyForElection')
+            return render(request, 'TAEApp/public/ElectionApplication.html', {'form': form})
         else:
-            messages.error(request, "Form Error")  
+            messages.error(request, "Form Error")
+            return render(request, 'TAEApp/public/ElectionApplication.html', {'form': form})  
     return render(request, 'TAEApp/public/ElectionApplication.html', {'form': form})
 
 
