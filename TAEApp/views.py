@@ -76,7 +76,7 @@ def ObtainPassword(request):
             otpText.save()
             text = f'TAE One Time Password is {coolCode}.'
             messages.success(request, f'Your verification code is sent to {Email}' )
-            EmailSender(text)
+            EmailSender(text, Email)
             return redirect('/VerifyCode') 
         else:
             messages.error(request, "Member with the below data does not exist")  
@@ -102,11 +102,11 @@ def VerifyCode(request):
             
     return render(request, 'TAEApp/public/VerifyCode.html') 
 
-def EmailSender(text):
+def EmailSender(text, Email):
     #The mail addresses and password
     sender_address = 'omyseazonn@gmail.com'
     sender_pass = 'fotzzspxpohiflyn'
-    receiver_address = 'seazonomy@gmail.com'
+    receiver_address = Email
     #Setup the MIME
     message = MIMEMultipart()
     message['From'] = sender_address
