@@ -1,7 +1,7 @@
 from distutils.log import error
 from email import message
-import uuid
-from django.http import HttpResponse
+import urllib.parse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.utils.timezone import now
 from .filters import *
@@ -86,31 +86,20 @@ def ObtainPassword(request):
 
 def VerifyCode(request):
     if request.method == 'POST':
+        
         otp = request.POST.get('OTP')
-        if otp == "":
-             return redirect('/')
-        else:     
-            existingOTP = OTP.objects.filter(Code=otp)
-            if existingOTP:
+        existingOTP = OTP.objects.filter(Code=otp)
+        if existingOTP:
                 existingCode = existingOTP[0].Code
                 memberID = existingOTP[0].MemberID
                 if existingCode == otp:
                     existingOTP[0].save()
-                    member = Member.objects.filter(Code = memberID)
-                    if member:
-                        Applicant = ElectionApplicant()
-                        Applicant.FirstName = member[0].FirstName
-                        Applicant.MiddleName = member[0].MiddleName
-                        Applicant.LastName = member[0].LastName
-                        Applicant.Emirate = member[0].Emirate
-                        Applicant.EmploymentStatus = member[0].EmploymentStatus
-                        Applicant.Code = memberID
-
-                        form = ElectionApplicantForm(instance=Applicant )
-                        return render(request, 'TAEApp/public/ElectionApplication.html', {'form': form})
-            else:
-                messages.error(request, "Verification code is not valid")  
-                return redirect('/VerifyCode')
+                    request.session['memberID'] = memberID
+                    return redirect('/ApplyForElection')  
+                else:
+                    messages.error(request, "Verification code is not valid")  
+                    return redirect('/VerifyCode')             
+            
     return render(request, 'TAEApp/public/VerifyCode.html') 
 
 def EmailSender(text):
@@ -535,6 +524,18 @@ def deleteElectionApplicant(request, pk):
     return render(request, 'TAEApp/ElectionApplicant/delete.html', context)   
 
 def PublicApplicant(request):
+    Applicant = ElectionApplicant()
+    if 'memberID' in request.session:
+        MemberID = request.session['memberID']
+        member = Member.objects.filter(Code = MemberID)
+        if member:
+            Applicant.FirstName = member[0].FirstName
+            Applicant.MiddleName = member[0].MiddleName
+            Applicant.LastName = member[0].LastName
+            Applicant.Emirate = member[0].Emirate
+            Applicant.EmploymentStatus = member[0].EmploymentStatus
+            Applicant.Code = MemberID
+    Applicantform = ElectionApplicantForm(instance=Applicant )
     form = ElectionApplicantForm(request.POST or None, request.FILES)
     if request.method == 'POST':
         if form.is_valid():
@@ -544,17 +545,17 @@ def PublicApplicant(request):
                 existingMemberApplication = ElectionApplicant.objects.filter(Code=newform.Code)
                 if existingMemberApplication:
                     messages.error(request, "You have already applied the position.")  
-                    return render(request, 'TAEApp/public/ElectionApplication.html', {'form': form})
+                    return render(request, 'TAEApp/public/ElectionApplication.html', {'form': Applicantform})
                 newform.save()
                 messages.success(request, "Application submitted") 
             else:
                 form = newform
                 messages.error(request, "Member Code does not exist")  
-            return render(request, 'TAEApp/public/ElectionApplication.html', {'form': form})
+            return render(request, 'TAEApp/public/ElectionApplication.html', {'form': Applicantform})
         else:
             messages.error(request, "Form Error")
-            return render(request, 'TAEApp/public/ElectionApplication.html', {'form': form})  
-    return render(request, 'TAEApp/public/ElectionApplication.html', {'form': form})
+            return render(request, 'TAEApp/public/ElectionApplication.html', {'form': Applicantform})  
+    return render(request, 'TAEApp/public/ElectionApplication.html', {'form': Applicantform})
 
 
     #FrontPage view //////////////////////////////////////////////////////////////////////////
