@@ -148,3 +148,9 @@ class Article(models.Model):
      isActive = models.BooleanField(default=False)
      def __str__(self):
         return self.Title                              
+
+class OTP(models.Model):
+     Code =  models.CharField(max_length=50)   
+     isActive = models.BooleanField(default=False)
+     GeneratedAt = models.DateTimeField(auto_now_add=True)
+     MemberID = models.CharField(max_length=200, default="")             

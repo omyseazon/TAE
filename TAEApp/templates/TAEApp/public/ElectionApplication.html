@@ -43,20 +43,19 @@
             
               <div class="col-md-6 form-group">
                 <label class="mb-2">TAE Member ID</label>
-                {% render_field form.Code  class+="form-control" id+="seeAnotherField" %}
-
+                <input type="text" class="form-control"value="{{form.Code.value|default_if_none:""}}" readonly>
               </div>
               <div class="col-md-6 form-group mt-3 mt-md-0">
                 <label class="mb-2">First Name</label>
-                {% render_field form.FirstName  class+="form-control"  %}
+                <input type="text" class="form-control"value="{{form.FirstName.value|default_if_none:""}}" readonly>
               </div>
               <div class="col-md-6 form-group">
                 <label class="mb-2">Middle Name</label>
-                {% render_field form.MiddleName class+="form-control" id+="seeAnotherField" %}
+                <input type="text" class="form-control"value="{{form.MiddleName.value|default_if_none:""}}" readonly>
               </div>
               <div class="col-md-6 form-group mt-3 mt-md-0">
                 <label class="mb-2">Last Name</label>
-                {% render_field form.LastName  class+="form-control"  %}
+                <input type="text" class="form-control"value="{{form.LastName.value|default_if_none:""}}" readonly>
               </div>
               <div class="col-md-6 form-group">
                 <label class="mb-2">Emirates ID</label>
@@ -72,15 +71,16 @@
               </div>
               <div class="col-md-6 form-group mt-3 mt-md-0">
                 <label class="mb-2">Emirate</label>
-                {% render_field form.Emirate class+="form-control"  %}
+                <input type="text" class="form-control"value="{{form.Emirate.value|default_if_none:""}}" readonly>
               </div>
               <div class="col-md-6 form-group">
                 <label class="mb-2">Position</label>
                 {% render_field form.Position  class+="form-control"  %}
+                
               </div>
               <div class="col-md-6 form-group">
                 <label class="mb-2">Employment Status</label>
-                {% render_field form.EmploymentStatus class+="form-control"  %}
+                <input type="text" class="form-control"value="{{form.EmploymentStatus.value|default_if_none:""}}" readonly>
               </div>
                        </div>
             <div class="my-3">

@@ -16,10 +16,12 @@ from django.core.files.uploadedfile import InMemoryUploadedFile,TemporaryUploade
 from django.core.files.storage import FileSystemStorage
 from django.contrib import messages
 import pandas as pd
-import os
+from django.core.cache import cache
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
- 
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 import csv
 # Create your views here.
 # Create your views here.
@@ -57,6 +59,78 @@ def ObtainMemberID(request):
             return redirect('/ObtainMemberID')
         
     return render(request, 'TAEApp/public/ObtainMemberID.html') 
+
+def ObtainPassword(request):
+    if request.method == 'POST':
+        MemberID = request.POST.get('MemberID')
+        existingMember = Member.objects.filter(Code=MemberID)
+        otpText =  OTP()
+        
+        if existingMember:
+            Email = existingMember[0].EmailAddress
+            Password = f'{now().year}{now().month}{now().day}{now().hour}{now().minute}'
+            otpText.Code = Password
+            otpText.isActive = True
+            otpText.MemberID = MemberID
+            otpText.save()
+            text = f'TAE One Time Password is {Password}.'
+            messages.success(request, f'Your verification code is sent to {Email}' )
+            EmailSender(text)
+            return redirect('/VerifyCode') 
+        else:
+            messages.error(request, "Member with the below data does not exist")  
+            return redirect('/ObtainPassword')
+        
+    return render(request, 'TAEApp/public/ObtainPassword.html') 
+
+def VerifyCode(request):
+    if request.method == 'POST':
+        otp = request.POST.get('OTP')
+        if otp == "":
+             return redirect('/')
+        else:     
+            existingOTP = OTP.objects.filter(Code=otp)
+            if existingOTP:
+                existingCode = existingOTP[0].Code
+                memberID = existingOTP[0].MemberID
+                if existingCode == otp:
+                    existingOTP[0].save()
+                    member = Member.objects.filter(Code = memberID)
+                    if member:
+                        Applicant = ElectionApplicant()
+                        Applicant.FirstName = member[0].FirstName
+                        Applicant.MiddleName = member[0].MiddleName
+                        Applicant.LastName = member[0].LastName
+                        Applicant.Emirate = member[0].Emirate
+                        Applicant.EmploymentStatus = member[0].EmploymentStatus
+                        Applicant.Code = memberID
+
+                        form = ElectionApplicantForm(instance=Applicant )
+                        return render(request, 'TAEApp/public/ElectionApplication.html', {'form': form})
+            else:
+                messages.error(request, "Verification code is not valid")  
+                return redirect('/VerifyCode')
+    return render(request, 'TAEApp/public/VerifyCode.html') 
+
+def EmailSender(text):
+    #The mail addresses and password
+    sender_address = 'omyseazonn@gmail.com'
+    sender_pass = 'fotzzspxpohiflyn'
+    receiver_address = 'seazonomy@gmail.com'
+    #Setup the MIME
+    message = MIMEMultipart()
+    message['From'] = sender_address
+    message['To'] = receiver_address
+    message['Subject'] = 'A test mail sent by TAE' 
+    message.attach(MIMEText(text, 'plain'))
+    session = smtplib.SMTP('smtp.gmail.com', 587) 
+    session.starttls() #enable security
+    session.login(sender_address, sender_pass) 
+    text = message.as_string()
+    session.sendmail(sender_address, receiver_address, text)
+    session.quit()
+    print('Mail Sent')
+
 @login_required    
 def index(request):
     return render(request, 'TAEApp/index.html')  
