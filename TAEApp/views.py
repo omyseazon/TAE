@@ -207,7 +207,8 @@ def becomeMember (request):
 
         if form.is_valid():
             newform = form.save(commit=False)
-            countryCode = newform.PhoneNumber[0 : 3]
+            countryCode = newform.PhoneNumber[0 : 4]
+            print(countryCode)
             if countryCode != "+971":
                 messages.success(request, 'Phone Number must start with +971')
                 return render(request, 'TAEApp/public/memberform.html', {'form': form}) 
