@@ -31,12 +31,7 @@
           <form  method="POST" class="php-email-form" enctype="multipart/form-data">
             {% csrf_token %}
             <h3 class="mb-3">Please fill below form </h3>
-            <ol class="mt-2">
-              <li>If your already a member and you remember your TAE member ID, Continue with the form below.</li>
-              <li>If you don't remember TAE member ID, Click this link <a href="ObtainMemberID">Forgot TAE member ID</a></li>
-              <li>If  you are not a registered member, Click this link <a href="becomeMember">Tobecome a member</a></li>
-              
-            </ol>
+         
             <h5>NOTE: Only one position is allowed to apply.</h5>
             {% include 'TAEApp/includes/messages.html' %}
             <div class="row mt-3">
@@ -82,7 +77,8 @@
               </div>
               <div class="col-md-6 form-group">
                 <label class="mb-2">Employment Status</label>
-                <input type="text" class="form-control" name ="EmploymentStatus " value="{{form.EmploymentStatus.value|default_if_none:""}}" readonly>
+                {% render_field form.EmploymentStatus  class+="form-control"  %}
+                {% comment %} <input type="text" class="form-control" name ="EmploymentStatus " value="{{form.EmploymentStatus.value|default_if_none:""}}" > {% endcomment %}
               </div>
                        </div>
             <div class="my-3">

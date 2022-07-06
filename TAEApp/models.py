@@ -6,7 +6,7 @@ from h11 import Data
 # Create your models here.   
 
 
-Permits =(("Residence", "Residence"),("Visit", "Visit"))
+Permits =(("Residence", "Residence"),("Visit", "Visit"),("UAE National", "UAE National"),("AGCC National", "AGCC National"))
 Emirates =(("Abu Dhabi", "Abu Dhabi"),("Dubai","Dubai"),("Sharjah ","Sharjah "),("Ajman","Ajman"),("Umm Al Quwain ","Umm Al Quwain "),("Ras Al Khaimah","Ras Al Khaimah"),("Fujairah","Fujairah"))
 EmploymentStatuses =(("Full time","Full time"), ("Part time ","Part time "),("Not applicable","Not applicable"), ("Job Seeker","Job Seeker"), ("Own a business","Own a business"), ("Self-employer","Self-employer" ))
 genders =(("Male", "Male"),("Female", "Female"),)
@@ -31,7 +31,7 @@ class Member(models.Model):
     EmploymentStatus =  models.CharField(max_length=200, choices=EmploymentStatuses, verbose_name="Religion")
     CompanyName =  models.CharField(max_length=200, verbose_name="Company Name")
     DoYouKnowAboutTAE =  models.BooleanField(default=False, verbose_name="Do You Know About TAE")
-    Advice = models.TextField(max_length=200,blank=True, default='')
+    Advice = models.CharField(max_length=200,blank=True, default='')
     def __str__(self):
         Fullname = f'{self.FirstName} {self.MiddleName} {self.LastName}'
         return Fullname
@@ -108,7 +108,16 @@ class Feedback(models.Model):
     def __str__(self):
         return self.FullName
 
-Positions =(("Chairman of the association","Chairman of the association"),("Vice Chairman of the Association","Vice Chairman of the Association"),("Secretary General","Secretary General"),("Deputy Secretary General","Deputy Secretary General"),("Treasurer","Treasurer"),("Assistant Treasurer","Assistant Treasurer"),("Chairman of the Chairman of Cultural and Social Welfare Committee","Chairman of the Chairman of Cultural and Social Welfare Committee"),("Chairman of the Chairman of Budget and Finance Committee","Chairman of the Chairman of Budget and Finance Committee"),("Chairman of the Chairman of knowledge and Publicity Committee","Chairman of the Chairman of knowledge and Publicity Committee"),("Chairman of the Chairman of Homeland investment committee","Chairman of the Chairman of Homeland investment committee"),("Committee member of Cultural and Social Welfare Committee","Committee member of Cultural and Social Welfare Committee"),("Committee member of Budget and Finance Committee","Committee member of Budget and Finance Committee"),("Committee member of knowledge and Publicity Committee","Committee member of knowledge and Publicity Committee"),("Committee member of Homeland investment committee","Committee member of Homeland investment committee"),)
+Positions =(("Chairman of the association","Chairman of the association")
+,("Vice Chairman of the Association","Vice Chairman of the Association")
+,("Secretary General","Secretary General")
+,("Deputy Secretary General","Deputy Secretary General")
+,("Treasurer","Treasurer"),
+("Assistant Treasurer","Assistant Treasurer")
+,("Education, Cultural and Social Welfare Committee","Education, Cultural and Social Welfare Committee")
+,("Finance and Planning Committee","Finance and Planning Committee")
+,("Publicity and Communication Committee","Publicity and Communication Committee")
+,("Homeland investment committee","Homeland investment committee"))
 class ElectionApplicant(models.Model):
     Code = models.CharField(max_length=200, verbose_name="Membership Code" )
     FirstName =  models.CharField(max_length=200, verbose_name="First Name")

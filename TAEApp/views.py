@@ -68,7 +68,7 @@ def ObtainPassword(request):
         
         if existingMember:
             Email = existingMember[0].EmailAddress
-            Password = f'{now().year}{now().month}{now().day}{now().hour}{now().minute}'
+            Password = f'{now().month}{now().day}{now().hour}{now().minute}'
             coolCode = Password
             otpText.Code = coolCode
             otpText.isActive = True
@@ -91,7 +91,11 @@ def VerifyCode(request):
         existingOTP = OTP.objects.filter(Code=otp)
         if existingOTP:
                 existingCode = existingOTP[0].Code
+                isActive = existingOTP[0].isActive
                 memberID = existingOTP[0].MemberID
+                # if isActive == True:
+                #     messages.error(request, "Verification code already been used.")  
+                #     return redirect('/VerifyCode')  
                 if existingCode == otp:
                     existingOTP[0].save()
                     request.session['memberID'] = memberID
@@ -534,7 +538,7 @@ def PublicApplicant(request):
             Applicant.MiddleName = member[0].MiddleName
             Applicant.LastName = member[0].LastName
             Applicant.Emirate = member[0].Emirate
-            Applicant.EmploymentStatus = member[0].EmploymentStatus
+            #Applicant.EmploymentStatus = member[0].EmploymentStatus
             Applicant.Code = MemberID
     Applicantform = ElectionApplicantForm(instance=Applicant )
     form = ElectionApplicantForm(request.POST or None, request.FILES)
@@ -549,6 +553,7 @@ def PublicApplicant(request):
                     return render(request, 'TAEApp/public/ElectionApplication.html', {'form': Applicantform})
                 newform.save()
                 messages.success(request, "Application submitted") 
+                return redirect("/ObtainPassword")
             else:
                 form = newform
                 messages.error(request, "Member Code does not exist")  
