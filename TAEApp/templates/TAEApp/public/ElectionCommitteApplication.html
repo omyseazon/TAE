@@ -1,0 +1,93 @@
+{% extends 'front_base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block content %}
+<main id="main">
+
+  <!-- ======= Breadcrumbs ======= -->
+  <section id="breadcrumbs" class="breadcrumbs">
+    <div class="container">
+
+      <div class="d-flex justify-content-between align-items-center">
+        <h2>Election Committee Applicant Form</h2>
+        <ol>
+          <li><a href="/">Home</a></li>
+          <li>Apply for election Committee</li>
+        </ol>
+      </div>
+
+    </div>
+  </section><!-- End Breadcrumbs -->
+
+  <!-- ======= Contact Section ======= -->
+ 
+  <section id="contact" class="contact">
+    <div class="container">
+
+   
+
+      <div class="row mt-5 justify-content-center" data-aos="fade-up">
+        <div class="col-lg-10">
+          <form  method="POST" class="php-email-form" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h3 class="mb-3">Please fill below form </h3>
+         
+            <h5>NOTE: Only one position is allowed to apply.</h5>
+            {% include 'TAEApp/includes/messages.html' %}
+            <div class="row mt-3">
+            
+              <div class="col-md-6 form-group">
+                <label class="mb-2">TAE Member ID</label>
+                <input type="text" class="form-control" name ="Code"  value="{{form.Code.value|default_if_none:""}}" readonly>
+              </div>
+
+              
+              <div class="col-md-6 form-group mt-3 mt-md-0">
+                <label class="mb-2">First Name</label>
+                <input type="text" class="form-control" name ="FirstName "  value="{{form.FirstName.value|default_if_none:""}}" readonly>
+              </div>
+              <div class="col-md-6 form-group">
+                <label class="mb-2">Middle Name</label>
+                <input type="text" class="form-control" name ="MiddleName " value="{{form.MiddleName.value|default_if_none:""}}" readonly>
+              </div>
+              <div class="col-md-6 form-group mt-3 mt-md-0">
+                <label class="mb-2">Last Name</label>
+                <input type="text" class="form-control" name ="LastName" value="{{form.LastName.value|default_if_none:""}}" readonly>
+              </div>
+             
+              <div class="col-md-6 form-group mt-3 mt-md-0">
+                <label class="mb-2">Visa Type</label>
+                {% render_field form.VisaType  class+="form-control"  %}
+              </div>
+              <div class="col-md-6 form-group">
+                <label class="mb-2">Education</label>
+                {% render_field form.Education class+="form-control"  %}
+              </div>
+              <div class="col-md-6 form-group mt-3 mt-md-0">
+                <label class="mb-2">Emirate</label>
+                <input type="text" class="form-control" name ="Emirate " value="{{form.Emirate.value|default_if_none:""}}" readonly>
+              </div>
+             
+              <div class="col-md-6 form-group">
+                <label class="mb-2">Employment Status</label>
+                {% render_field form.EmploymentStatus  class+="form-control"  %}
+                {% comment %} <input type="text" class="form-control" name ="EmploymentStatus " value="{{form.EmploymentStatus.value|default_if_none:""}}" > {% endcomment %}
+              </div>
+                       </div>
+            <div class="my-3">
+              <div class="loading">Loading</div>
+              {% comment %} <div class="error-message"></div> {% endcomment %}
+           
+            </div>
+            <div class="text-left"><button name="btnApplicant" type="submit">Submit</button></div>
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+  </section><!-- End Contact Section -->
+
+</main><!-- End #main -->
+
+{% endblock content %}

@@ -42,7 +42,10 @@ class ElectionApplicantForm(forms.ModelForm):
 	class Meta:
 		model = ElectionApplicant
 		fields = '__all__'		
-
+class ElectionCommitteeApplicantForm(forms.ModelForm):
+	class Meta:
+		model = ElectionCommitteeApplicant
+		fields = '__all__'	
 class FrontPageForm(forms.ModelForm):
 	class Meta:
 		model = FrontPage

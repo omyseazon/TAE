@@ -15,7 +15,35 @@
             >
           </li>
           <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/Member" aria-expanded="false"><i class="mdi mdi-face"></i><span class="hide-menu">Members</span></a></li>
-          <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/ElectionApplicant" aria-expanded="false"><i class="mdi mdi-face"></i><span class="hide-menu">Election Applicants</span></a></li>
+          {% comment %} <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/ElectionApplicant" aria-expanded="false"><i class="mdi mdi-face"></i><span class="hide-menu">Election Applicants</span></a></li> {% endcomment %}
+          <li class="sidebar-item">
+            <a
+              class="sidebar-link has-arrow waves-effect waves-dark"
+              href="javascript:void(0)"
+              aria-expanded="false"
+              ><i class="mdi mdi-hotel"></i
+              ><span class="hide-menu">Election </span></a
+            >
+          
+
+            <ul aria-expanded="false" class="collapse first-level">
+             
+              <li class="sidebar-item">
+                <a href="/ElectionApplicant" class="sidebar-link"
+                  ><i class="mdi mdi-emoticon"></i
+                  ><span class="hide-menu">  Election Applicants </span></a
+                >
+              </li>
+              <li class="sidebar-item">
+                <a href="/ElectionCommitteeApplicant" class="sidebar-link"
+                  ><i class="mdi mdi-emoticon"></i
+                  ><span class="hide-menu"> Election committee </span></a
+                >
+              </li>
+            
+             
+            </ul>
+          </li>
           <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/Gallery" aria-expanded="false"><i class="mdi mdi-face"></i><span class="hide-menu">Gallery</span></a></li>
           <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/News" aria-expanded="false"><i class="mdi mdi-face"></i><span class="hide-menu">News</span></a></li>
           <li class="sidebar-item">

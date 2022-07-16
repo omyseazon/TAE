@@ -43,18 +43,28 @@ urlpatterns = [
       path('updateElectionApplicant/<int:pk>', views.editElectionApplicant, name = 'updateElectionApplicant'),
       path('deleteElectionApplicant/<int:pk>', views.deleteElectionApplicant, name='deleteElectionApplicant'),
 
+      #ElectionCommitteeApplicant urls
+      path('ElectionCommitteeApplicant', views.ElectionCommitteeApplicantView, name = 'ElectionCommitteeApplicant'),
+      path('createElectionCommitteeApplicant', views.createElectionCommitteeApplicant, name = 'createElectionCommitteeApplicant'),
+      path('updateElectionCommitteeApplicant/<int:pk>', views.editElectionCommitteeApplicant, name = 'updateElectionCommitteeApplicant'),
+      path('deleteElectionCommitteeApplicant/<int:pk>', views.deleteElectionCommitteeApplicant, name='deleteElectionCommitteeApplicant'),
+
+
        #public urls
       path('becomeMember', views.becomeMember, name='becomeMember'),
       path('publicGallery', views.publicGallery, name='publicGallery'),
       path('ComplainOne', views.ComplainOne, name='ComplainOne'),
       path('ComplainTwo', views.ComplainTwo, name='ComplainTwo'),
       path('ApplyForElection', views.PublicApplicant, name='ApplyForElection'),
+      path('ApplyForElectionCommittee', views.PublicCommitteApplicant, name='Election Committee'),
       path('AboutMember', views.AboutMember, name='AboutMember'),
       path('Leadership', views.Leadership, name='Leadership'),
       path('AboutElection', views.AboutElection, name='AboutElection'),
       path('ObtainMemberID', views.ObtainMemberID, name='ObtainMemberID'),
       path('ObtainPassword', views.ObtainPassword, name='ObtainPassword'),
+      path('ObtainCode', views.ObtainCode, name='ObtainCode'),
       path('VerifyCode', views.VerifyCode, name='Verify Code'),
+       path('VerifyCodeCommittee', views.VerifyCodeCommittee, name='Verify Code'),
 
       #FrontPage urls
       path('FrontPage', views.FrontPageView, name = 'FrontPage'),

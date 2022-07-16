@@ -118,6 +118,7 @@ Positions =(("Chairman of the association","Chairman of the association")
 ,("Finance and Planning Committee","Finance and Planning Committee")
 ,("Publicity and Communication Committee","Publicity and Communication Committee")
 ,("Homeland investment committee","Homeland investment committee"))
+
 class ElectionApplicant(models.Model):
     Code = models.CharField(max_length=200, verbose_name="Membership Code" )
     FirstName =  models.CharField(max_length=200, verbose_name="First Name")
@@ -163,3 +164,16 @@ class OTP(models.Model):
      isActive = models.BooleanField(default=False)
      GeneratedAt = models.DateTimeField(auto_now_add=True)
      MemberID = models.CharField(max_length=200, default="")             
+
+class ElectionCommitteeApplicant(models.Model):
+    Code = models.CharField(max_length=200, verbose_name="Membership Code" )
+    FirstName =  models.CharField(max_length=200, verbose_name="First Name")
+    MiddleName =  models.CharField(max_length=200, verbose_name="Middle Name")
+    LastName =  models.CharField(max_length=200, verbose_name="Last Name")
+    VisaType =  models.CharField(max_length=200, choices=VisaTypes, verbose_name="Visa Type")
+    Education =  models.CharField(max_length=200, choices=Educations, verbose_name="Education")
+    Emirate =  models.CharField(max_length=200, choices=Emirates, verbose_name="Emirate")
+    EmploymentStatus =  models.CharField(max_length=200, choices=EmploymentStatuses, verbose_name="Religion")
+    def __str__(self):
+        Fullname = f'{self.FirstName} {self.MiddleName} {self.LastName}'
+        return Fullname     

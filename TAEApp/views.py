@@ -84,6 +84,30 @@ def ObtainPassword(request):
         
     return render(request, 'TAEApp/public/ObtainPassword.html') 
 
+def ObtainCode(request):
+    if request.method == 'POST':
+        MemberID = request.POST.get('MemberID')
+        existingMember = Member.objects.filter(Code=MemberID)
+        otpText =  OTP()
+        
+        if existingMember:
+            Email = existingMember[0].EmailAddress
+            Password = f'{now().month}{now().day}{now().hour}{now().minute}'
+            coolCode = Password
+            otpText.Code = coolCode
+            otpText.isActive = True
+            otpText.MemberID = MemberID
+            otpText.save()
+            text = f'TAE One Time Password is {coolCode}.'
+            messages.success(request, f'Your verification code is sent to {Email}' )
+            EmailSender(text, Email)
+            return redirect('/VerifyCodeCommittee') 
+        else:
+            messages.error(request, "Member with the below data does not exist")  
+            return redirect('/ObtainCode')
+        
+    return render(request, 'TAEApp/public/ObtainPassword.html') 
+
 def VerifyCode(request):
     if request.method == 'POST':
         
@@ -103,6 +127,28 @@ def VerifyCode(request):
                 else:
                     messages.error(request, "Verification code is not valid")  
                     return redirect('/VerifyCode')             
+            
+    return render(request, 'TAEApp/public/VerifyCode.html') 
+
+def VerifyCodeCommittee(request):
+    if request.method == 'POST':
+        
+        otp = request.POST.get('OTP')
+        existingOTP = OTP.objects.filter(Code=otp)
+        if existingOTP:
+                existingCode = existingOTP[0].Code
+                isActive = existingOTP[0].isActive
+                memberID = existingOTP[0].MemberID
+                # if isActive == True:
+                #     messages.error(request, "Verification code already been used.")  
+                #     return redirect('/VerifyCode')  
+                if existingCode == otp:
+                    existingOTP[0].save()
+                    request.session['memberID'] = memberID
+                    return redirect('/ApplyForElectionCommittee')  
+                else:
+                    messages.error(request, "Verification code is not valid")  
+                    return redirect('/VerifyCodeCommittee')             
             
     return render(request, 'TAEApp/public/VerifyCode.html') 
 
@@ -659,3 +705,98 @@ def deleteContent(request, pk):
     context = {'item': pickContent} 
     return render(request, 'TAEApp/CMS/Content/delete.html', context)
     
+#ElectionCommitteeApplicant view //////////////////////////////////////////////////////////////////////////
+@login_required    
+def ElectionCommitteeApplicantView(request):
+    _ElectionCommitteeApplicant = ElectionCommitteeApplicant.objects.all()
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(_ElectionCommitteeApplicant, 50)
+    try:
+        _ElectionCommitteeApplicant = paginator.page(page)
+    except PageNotAnInteger:
+        _ElectionCommitteeApplicant = paginator.page(1)
+    except EmptyPage:
+        _ElectionCommitteeApplicant = paginator.page(paginator.num_pages)
+    return render(request, 'TAEApp/ElectionCommitteeApplicant/list.html', {'TeaElectionCommitteeApplicant': _ElectionCommitteeApplicant})  
+
+@login_required    
+def createElectionCommitteeApplicant(request):
+    form = ElectionCommitteeApplicantForm(request.POST or None, request.FILES)
+    if request.method == 'POST':
+        if form.is_valid():
+            newform = form.save(commit=False)
+            existingMember = Member.objects.filter(Code=newform.TAENumber)
+            if existingMember:
+                newform.save()
+                messages.success(request, "Complain created") 
+            else:
+                form = newform
+                messages.error(request, "Member Code does not exist")  
+            return redirect('/createElectionCommitteeApplicant')
+        else:
+            messages.error(request, "Form Error")  
+    return render(request, 'TAEApp/ElectionCommitteeApplicant/create.html', {'form': form})
+
+@login_required    
+def editElectionCommitteeApplicant(request, pk):
+    pickElectionCommitteeApplicant = ElectionCommitteeApplicant.objects.get(pk=pk)
+    editForm = ElectionCommitteeApplicantForm(request.POST or None,request.FILES or None, instance=pickElectionCommitteeApplicant)
+
+    if editForm.is_valid():
+            newform = editForm.save(commit=False)
+            existingMember = Member.objects.filter(Code=newform.Code)
+            if existingMember :
+                newform.save()
+                messages.success(request, "Complain created") 
+                return redirect('/ElectionCommitteeApplicant')
+            else:
+                form = newform
+                messages.error(request, "Member Code does not exist")  
+    
+    return render(request, 'TAEApp/ElectionCommitteeApplicant/update.html', {'form': editForm, 'Id':pk, 'ElectionCommitteeApplicantId':pk})
+
+
+@login_required    
+def deleteElectionCommitteeApplicant(request, pk):
+    pickElectionCommitteeApplicant = ElectionCommitteeApplicant.objects.get(pk=pk)
+    if request.method == 'POST':
+        pickElectionCommitteeApplicant.delete()
+        return redirect('/ElectionCommitteeApplicant')
+    context = {'item': pickElectionCommitteeApplicant} 
+    return render(request, 'TAEApp/ElectionCommitteeApplicant/delete.html', context)   
+
+def PublicCommitteApplicant(request):
+    Applicant = ElectionCommitteeApplicant()
+    if 'memberID' in request.session:
+        MemberID = request.session['memberID']
+        member = Member.objects.filter(Code = MemberID)
+        if member:
+            Applicant.FirstName = member[0].FirstName
+            Applicant.MiddleName = member[0].MiddleName
+            Applicant.LastName = member[0].LastName
+            Applicant.Emirate = member[0].Emirate
+            #Applicant.EmploymentStatus = member[0].EmploymentStatus
+            Applicant.Code = MemberID
+    Applicantform = ElectionCommitteeApplicantForm(instance=Applicant )
+    form = ElectionCommitteeApplicantForm(request.POST or None, request.FILES)
+    if request.method == 'POST':
+        if form.is_valid():
+            newform = form.save(commit=False)
+            existingMember = Member.objects.filter(Code=newform.Code)
+            if existingMember:
+                existingMemberApplication = ElectionCommitteeApplicant.objects.filter(Code=newform.Code)
+                if existingMemberApplication:
+                    messages.error(request, "You have already applied the position.")  
+                    return render(request, 'TAEApp/public/ElectionCommitteApplication.html', {'form': Applicantform})
+                newform.save()
+                messages.success(request, "Application submitted") 
+                return redirect("/ObtainCode")
+            else:
+                form = newform
+                messages.error(request, "Member Code does not exist")  
+            return render(request, 'TAEApp/public/ElectionCommitteApplication.html', {'form': Applicantform})
+        else:
+            messages.error(request, "Form Error")
+            return render(request, 'TAEApp/public/ElectionCommitteApplication.html', {'form': Applicantform})  
+    return render(request, 'TAEApp/public/ElectionCommitteApplication.html', {'form': Applicantform})
