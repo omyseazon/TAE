@@ -49,6 +49,11 @@ urlpatterns = [
       path('updateElectionCommitteeApplicant/<int:pk>', views.editElectionCommitteeApplicant, name = 'updateElectionCommitteeApplicant'),
       path('deleteElectionCommitteeApplicant/<int:pk>', views.deleteElectionCommitteeApplicant, name='deleteElectionCommitteeApplicant'),
 
+        #Settings urls
+      path('Settings', views.SettingsView, name = 'Settings'),
+      path('createSettings', views.createSettings, name = 'createSettings'),
+      path('updateSettings/<int:pk>', views.editSettings, name = 'updateSettings'),
+      path('deleteSettings/<int:pk>', views.deleteSettings, name='deleteSettings'),
 
        #public urls
       path('becomeMember', views.becomeMember, name='becomeMember'),

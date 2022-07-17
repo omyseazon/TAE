@@ -37,3 +37,11 @@ class ElectionApplicantFilter(django_filters.FilterSet):
         model = ElectionApplicant
         #2) all & exclude(override all)
         fields = ('Code',)        
+
+
+class SettingsFilter(django_filters.FilterSet):
+    class Meta:
+        #minimum of two attr
+        model = Settings
+        #2) all & exclude(override all)
+        fields = ('EmailFrom',)        

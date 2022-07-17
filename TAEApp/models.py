@@ -177,3 +177,9 @@ class ElectionCommitteeApplicant(models.Model):
     def __str__(self):
         Fullname = f'{self.FirstName} {self.MiddleName} {self.LastName}'
         return Fullname     
+
+class Settings(models.Model):
+     EmailFrom =  models.CharField(max_length=50)   
+     EmailPassword = models.CharField(max_length=50)
+     SMTPHOST = models.CharField(max_length=50)
+     SMTPPort = models.IntegerField()          

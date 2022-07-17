@@ -153,23 +153,26 @@ def VerifyCodeCommittee(request):
     return render(request, 'TAEApp/public/VerifyCode.html') 
 
 def EmailSender(text, Email):
-    #The mail addresses and password
-    sender_address = 'omyseazonn@gmail.com'
-    sender_pass = 'fotzzspxpohiflyn'
-    receiver_address = Email
-    #Setup the MIME
-    message = MIMEMultipart()
-    message['From'] = sender_address
-    message['To'] = receiver_address
-    message['Subject'] = 'A test mail sent by TAE' 
-    message.attach(MIMEText(text, 'plain'))
-    session = smtplib.SMTP('smtp.gmail.com', 587) 
-    session.starttls() #enable security
-    session.login(sender_address, sender_pass) 
-    text = message.as_string()
-    session.sendmail(sender_address, receiver_address, text)
-    session.quit()
-    print('Mail Sent')
+    _Settings = Settings.objects.all()
+    if _Settings:
+
+        #The mail addresses and password
+        sender_address = _Settings[0].EmailFrom
+        sender_pass = _Settings[0].EmailPassword
+        receiver_address = Email
+        #Setup the MIME
+        message = MIMEMultipart()
+        message['From'] = sender_address
+        message['To'] = receiver_address
+        message['Subject'] = 'A test mail sent by TAE' 
+        message.attach(MIMEText(text, 'plain'))
+        session = smtplib.SMTP(_Settings[0].SMTPHOST, _Settings[0].SMTPPort) 
+        session.starttls() #enable security
+        session.login(sender_address, sender_pass) 
+        text = message.as_string()
+        session.sendmail(sender_address, receiver_address, text)
+        session.quit()
+        print('Mail Sent')
 
 @login_required    
 def index(request):
@@ -800,3 +803,50 @@ def PublicCommitteApplicant(request):
             messages.error(request, "Form Error")
             return render(request, 'TAEApp/public/ElectionCommitteApplication.html', {'form': Applicantform})  
     return render(request, 'TAEApp/public/ElectionCommitteApplication.html', {'form': Applicantform})
+
+#Settings view //////////////////////////////////////////////////////////////////////////
+@login_required    
+def SettingsView(request):
+    _Settings = Settings.objects.all()
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(_Settings, 50)
+    try:
+        _Settings = paginator.page(page)
+    except PageNotAnInteger:
+        _Settings = paginator.page(1)
+    except EmptyPage:
+        _Settings = paginator.page(paginator.num_pages)
+    return render(request, 'TAEApp/Settings/list.html', {'TeaSettings': _Settings})  
+
+@login_required    
+def createSettings(request):
+    form = SettingsForm(request.POST or None, request.FILES)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Settings created")  
+            return redirect('/createSettings')
+        else:
+            messages.error(request, "Form Error")  
+    return render(request, 'TAEApp/Settings/create.html', {'form': form})
+
+@login_required    
+def editSettings(request, pk):
+    pickSettings = Settings.objects.get(pk=pk)
+    editForm = SettingsForm(request.POST or None,request.FILES or None, instance=pickSettings)
+
+    if editForm.is_valid():
+        editForm.save()
+        return redirect('/Settings')
+    return render(request, 'TAEApp/Settings/update.html', {'form': editForm, 'SettingsId':pk})
+
+
+@login_required    
+def deleteSettings(request, pk):
+    pickSettings = Settings.objects.get(pk=pk)
+    if request.method == 'POST':
+        pickSettings.delete()
+        return redirect('/Settings')
+    context = {'item': pickSettings} 
+    return render(request, 'TAEApp/Settings/delete.html', context)

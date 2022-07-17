@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="page-wrapper">
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="page-breadcrumb">
+      <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+          <h4 class="page-title"> Settings</h4>
+          <div class="ml-auto text-right">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">
+                 Create Settings
+                </li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+      {% include 'TAEApp/includes/messages.html' %}
+    
+        
+            <form method="POST" class="form-horizontal" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="border-top">
+                <div class="card-body">
+                  <button type="submit" class="btn btn-info">Save</button>
+                  <a href="{% url 'Settings' %}" type="submit" class="btn btn-danger">Cancel</a>
+                </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                
+                    {% comment %} <h4 class="card-title">Edit Settings</h4> {% endcomment %}
+                    <div class="form-group row">
+                        <label  class="col-sm-3 text-right control-label col-form-label">Email From</label>
+                        <div class="col-sm-9">
+                          {% render_field form.EmailFrom placeholder=form.EmailFrom.label class+="form-control"  %}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                      <label  class="col-sm-3 text-right control-label col-form-label">Email Password</label>
+                      <div class="col-sm-9">
+                        {% render_field form.EmailPassword placeholder=form.EmailPassword.label class+="form-control" id+="seeAnotherField" %}
+                      </div>
+                  </div>
+                 
+                    <div class="form-group row">
+                      <label  class="col-sm-3 text-right control-label col-form-label">SMTP HOST</label>
+                      <div class="col-sm-9">
+                        {% render_field form.SMTPHOST placeholder=form.SMTPHOST.label class+="form-control" id+="seeAnotherField" %}
+                      </div>
+                  </div>
+           <div class="form-group row">
+                    <label  class="col-sm-3 text-right control-label col-form-label">SMTP Port</label>
+                    <div class="col-sm-9">
+                      {% render_field form.SMTPPort placeholder=form.SMTPPort.label class+="form-control"  %}
+                    </div>
+                </div>
+           
+                </div>
+              </div>
+            </div>
+
+         
+  
+                  </div>
+                </div>
+              </div>
+          </div>
+            </form>
+        
+
+    
+    </div>
+
+    {% include 'TAEApp/includes/footer.html' %}
+  </div>
+ 
+{% endblock content %}
+    
+ 
+
+

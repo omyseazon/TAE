@@ -55,3 +55,8 @@ class ContentForm(forms.ModelForm):
 	class Meta:
 		model = Content
 		fields = '__all__'			
+
+class SettingsForm(forms.ModelForm):
+	class Meta:
+		model = Settings
+		fields = '__all__'		
