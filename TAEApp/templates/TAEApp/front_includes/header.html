@@ -60,14 +60,17 @@
             </ul>
           </li>{% endcomment %}
           {% comment %} <li><a href="/Leadership">Leadership</a></li>
-          <li class="dropdown"><a href="#"><span>Membership</span> <i class="bi bi-chevron-right"></i></a>
+          <li class="dropdown"><a href="#">
+            <span>Membership</span> 
+            <i class="bi bi-chevron-right"></i>
+          </a>
             <ul>
                   <li><a href="/AboutMember">About membership</a></li>
                   <li><a href="becomeMember">Become a member</a></li>
                   <li><a href="ObtainMemberID">Obtain TAE Member ID</a></li>
-                  {% comment %} <li><a href="ObtainPassword">Obtain credentials</a></li> {% endcomment %}
-          </ul> {% endcomment %}
-        </li>
+                  {% comment %} <li><a href="ObtainPassword">Obtain credentials</a></li> 
+          </ul> 
+        </li>{% endcomment %}
           {% comment %} <li><a href="/">Contact</a></li> {% endcomment %}
           {% if user.is_authenticated %}
               {% comment %} Hi {{ user.username }}! {% endcomment %}
